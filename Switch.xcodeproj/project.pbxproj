@@ -1,0 +1,540 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00F833DD5D8C2A5F3DC3C425 /* SwitcherControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */; };
+		01A242EC187E2E08296A2919 /* FilterEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F452498B858964B768328B /* FilterEngineTests.swift */; };
+		1FA2720FA8C77E4F58A50C36 /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49FEF92D19C9C942F07D144 /* WindowActions.swift */; };
+		22D9B19DC9837DAFE987330C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */; };
+		2552BE6B630F83F5C06D1F6E /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */; };
+		3524E2807DD9B649063A0D96 /* SwitcherPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102DB1582995F808C153632 /* SwitcherPanel.swift */; };
+		38189ADAED2DED0A55580DCE /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B8517F9A57D7837F63D8C /* LoginItem.swift */; };
+		3A3705675983530269F57F20 /* SwitcherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */; };
+		419854E47745D048341884BA /* WindowEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB880FB4DBE25B99B878B33F /* WindowEntry.swift */; };
+		45DF39AD8252D2A1602FFAA6 /* WindowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809E63E8CF3BAE25E7D78DD /* WindowList.swift */; };
+		5DB71BBD7257AAA895F6039C /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */; };
+		6DB0E41581E54D8EE77A8B56 /* WindowProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E1C6D446D8A510FFE99737 /* WindowProviding.swift */; };
+		8E82ACF5642A48B225D2F8C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF6483A308C2443F3926D7E /* SettingsView.swift */; };
+		909A2A1545614BA6E86188C7 /* SwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */; };
+		91F6DC6586035974993D81F3 /* SwitcherState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */; };
+		9D48D2DA592EFE1BDE335BA0 /* WindowActioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A141679B29F6673352FCCC3 /* WindowActioning.swift */; };
+		A92762A632C10F4F5642ABBC /* HotkeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F583A29DD478027F921BDB /* HotkeyTap.swift */; };
+		B543FCF77A447BCE92F367E7 /* AXPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E25C07D2277E8459A24FF /* AXPrivate.swift */; };
+		C507A438F5526237E8847D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5F12AF6CB74E3D94879086 /* Assets.xcassets */; };
+		D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */; };
+		DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D6987F63628B899D6E3A01 /* Fakes.swift */; };
+		F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875A828B24B09BBA6D3C59FA /* SmokeTests.swift */; };
+		FB3D73FA2EBF6B0778098C04 /* HotkeyDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7933CDEA42FD6667FFF5199C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 017E60C3487F457039AB814C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10CF59D4CE3A0CF5A9F27436;
+			remoteInfo = Switch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyDecoder.swift; sourceTree = "<group>"; };
+		04F583A29DD478027F921BDB /* HotkeyTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyTap.swift; sourceTree = "<group>"; };
+		053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		0A5B8517F9A57D7837F63D8C /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
+		16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherState.swift; sourceTree = "<group>"; };
+		190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherView.swift; sourceTree = "<group>"; };
+		1A141679B29F6673352FCCC3 /* WindowActioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActioning.swift; sourceTree = "<group>"; };
+		1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
+		21E1C6D446D8A510FFE99737 /* WindowProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowProviding.swift; sourceTree = "<group>"; };
+		2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyDecoderTests.swift; sourceTree = "<group>"; };
+		2E5F12AF6CB74E3D94879086 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherControllerTests.swift; sourceTree = "<group>"; };
+		70792BF4FE8DF7D24D594636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		72D6987F63628B899D6E3A01 /* Fakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fakes.swift; sourceTree = "<group>"; };
+		875A828B24B09BBA6D3C59FA /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
+		9102DB1582995F808C153632 /* SwitcherPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanel.swift; sourceTree = "<group>"; };
+		A1F452498B858964B768328B /* FilterEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngineTests.swift; sourceTree = "<group>"; };
+		BBF6483A308C2443F3926D7E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D49FEF92D19C9C942F07D144 /* WindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActions.swift; sourceTree = "<group>"; };
+		D598A61DC65229AE22416BE5 /* SwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D72E25C07D2277E8459A24FF /* AXPrivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPrivate.swift; sourceTree = "<group>"; };
+		D7A080B4E6778888AE4E2CCB /* Switch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Switch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D809E63E8CF3BAE25E7D78DD /* WindowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowList.swift; sourceTree = "<group>"; };
+		F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherController.swift; sourceTree = "<group>"; };
+		FB880FB4DBE25B99B878B33F /* WindowEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEntry.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		3268259CFBCA185D09050061 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		4C0F3F10AD207719C4E19BD9 = {
+			isa = PBXGroup;
+			children = (
+				B339B38E4DE4D15FDAFC4F65 /* Switch */,
+				FAB2EF964AE478CAFD28B3F1 /* SwitchTests */,
+				CB83082B7954AB98D3B92163 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8199008F12A2832CAF037A68 /* Switcher */ = {
+			isa = PBXGroup;
+			children = (
+				F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */,
+				9102DB1582995F808C153632 /* SwitcherPanel.swift */,
+				16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */,
+				190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */,
+				FB880FB4DBE25B99B878B33F /* WindowEntry.swift */,
+			);
+			path = Switcher;
+			sourceTree = "<group>";
+		};
+		B339B38E4DE4D15FDAFC4F65 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				FB7593B85015FCCB70191654 /* App */,
+				3268259CFBCA185D09050061 /* Filter */,
+				D9BFD0EE4C93CCD5696EC821 /* Resources */,
+				F5E92E1A5102B1FD10DE687A /* Settings */,
+				8199008F12A2832CAF037A68 /* Switcher */,
+				CF288CE90B8F74BE3DFBD08B /* System */,
+			);
+			path = Switch;
+			sourceTree = "<group>";
+		};
+		CB83082B7954AB98D3B92163 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7A080B4E6778888AE4E2CCB /* Switch.app */,
+				D598A61DC65229AE22416BE5 /* SwitchTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF288CE90B8F74BE3DFBD08B /* System */ = {
+			isa = PBXGroup;
+			children = (
+				D72E25C07D2277E8459A24FF /* AXPrivate.swift */,
+				027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */,
+				04F583A29DD478027F921BDB /* HotkeyTap.swift */,
+				1A141679B29F6673352FCCC3 /* WindowActioning.swift */,
+				D49FEF92D19C9C942F07D144 /* WindowActions.swift */,
+				D809E63E8CF3BAE25E7D78DD /* WindowList.swift */,
+				21E1C6D446D8A510FFE99737 /* WindowProviding.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		D9BFD0EE4C93CCD5696EC821 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E5F12AF6CB74E3D94879086 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F5E92E1A5102B1FD10DE687A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B8517F9A57D7837F63D8C /* LoginItem.swift */,
+				BBF6483A308C2443F3926D7E /* SettingsView.swift */,
+				053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		FAB2EF964AE478CAFD28B3F1 /* SwitchTests */ = {
+			isa = PBXGroup;
+			children = (
+				72D6987F63628B899D6E3A01 /* Fakes.swift */,
+				A1F452498B858964B768328B /* FilterEngineTests.swift */,
+				2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */,
+				875A828B24B09BBA6D3C59FA /* SmokeTests.swift */,
+				620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */,
+			);
+			path = SwitchTests;
+			sourceTree = "<group>";
+		};
+		FB7593B85015FCCB70191654 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */,
+				70792BF4FE8DF7D24D594636 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10CF59D4CE3A0CF5A9F27436 /* Switch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42B109DB5A67B356CF6E093C /* Build configuration list for PBXNativeTarget "Switch" */;
+			buildPhases = (
+				62520F867CEB7596C5EA90C0 /* Sources */,
+				1EDABACCB8034D7AC5DD9EDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Switch;
+			packageProductDependencies = (
+			);
+			productName = Switch;
+			productReference = D7A080B4E6778888AE4E2CCB /* Switch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E3C4B92D56A8EEE5D30F9D5E /* SwitchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2FEFFAE052881FDF406DA7C /* Build configuration list for PBXNativeTarget "SwitchTests" */;
+			buildPhases = (
+				76DE8E5D8164235F88AF0904 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3542386FF8EC79D5EC772A12 /* PBXTargetDependency */,
+			);
+			name = SwitchTests;
+			packageProductDependencies = (
+			);
+			productName = SwitchTests;
+			productReference = D598A61DC65229AE22416BE5 /* SwitchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		017E60C3487F457039AB814C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					10CF59D4CE3A0CF5A9F27436 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					E3C4B92D56A8EEE5D30F9D5E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 81CE9AE7B34CA13CAC83A50B /* Build configuration list for PBXProject "Switch" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4C0F3F10AD207719C4E19BD9;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CB83082B7954AB98D3B92163 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10CF59D4CE3A0CF5A9F27436 /* Switch */,
+				E3C4B92D56A8EEE5D30F9D5E /* SwitchTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1EDABACCB8034D7AC5DD9EDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C507A438F5526237E8847D4C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62520F867CEB7596C5EA90C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B543FCF77A447BCE92F367E7 /* AXPrivate.swift in Sources */,
+				22D9B19DC9837DAFE987330C /* AppDelegate.swift in Sources */,
+				5DB71BBD7257AAA895F6039C /* FilterEngine.swift in Sources */,
+				D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */,
+				A92762A632C10F4F5642ABBC /* HotkeyTap.swift in Sources */,
+				38189ADAED2DED0A55580DCE /* LoginItem.swift in Sources */,
+				8E82ACF5642A48B225D2F8C3 /* SettingsView.swift in Sources */,
+				2552BE6B630F83F5C06D1F6E /* SettingsWindowController.swift in Sources */,
+				3A3705675983530269F57F20 /* SwitcherController.swift in Sources */,
+				3524E2807DD9B649063A0D96 /* SwitcherPanel.swift in Sources */,
+				91F6DC6586035974993D81F3 /* SwitcherState.swift in Sources */,
+				909A2A1545614BA6E86188C7 /* SwitcherView.swift in Sources */,
+				9D48D2DA592EFE1BDE335BA0 /* WindowActioning.swift in Sources */,
+				1FA2720FA8C77E4F58A50C36 /* WindowActions.swift in Sources */,
+				419854E47745D048341884BA /* WindowEntry.swift in Sources */,
+				45DF39AD8252D2A1602FFAA6 /* WindowList.swift in Sources */,
+				6DB0E41581E54D8EE77A8B56 /* WindowProviding.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		76DE8E5D8164235F88AF0904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */,
+				01A242EC187E2E08296A2919 /* FilterEngineTests.swift in Sources */,
+				FB3D73FA2EBF6B0778098C04 /* HotkeyDecoderTests.swift in Sources */,
+				F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */,
+				00F833DD5D8C2A5F3DC3C425 /* SwitcherControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3542386FF8EC79D5EC772A12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10CF59D4CE3A0CF5A9F27436 /* Switch */;
+			targetProxy = 7933CDEA42FD6667FFF5199C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4F08869FA3EF8E24F790687A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+		60BB8F923A085523ABC967C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = Switch/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.warpnine.switch;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		874D6E65B22D93D9F3586DA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.warpnine.SwitchTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Switch.app/Contents/MacOS/Switch";
+			};
+			name = Debug;
+		};
+		8A4F48F8F7B7E7299F629382 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		A453B9C8FCD13718C9ABA962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = Switch/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.warpnine.switch;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B238787A53D9F17B289FF199 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.warpnine.SwitchTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Switch.app/Contents/MacOS/Switch";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42B109DB5A67B356CF6E093C /* Build configuration list for PBXNativeTarget "Switch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A453B9C8FCD13718C9ABA962 /* Debug */,
+				60BB8F923A085523ABC967C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		81CE9AE7B34CA13CAC83A50B /* Build configuration list for PBXProject "Switch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A4F48F8F7B7E7299F629382 /* Debug */,
+				4F08869FA3EF8E24F790687A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A2FEFFAE052881FDF406DA7C /* Build configuration list for PBXNativeTarget "SwitchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				874D6E65B22D93D9F3586DA6 /* Debug */,
+				B238787A53D9F17B289FF199 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 017E60C3487F457039AB814C /* Project object */;
+}

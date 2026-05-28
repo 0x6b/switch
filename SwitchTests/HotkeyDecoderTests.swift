@@ -1,0 +1,120 @@
+import XCTest
+import Carbon.HIToolbox
+import CoreGraphics
+@testable import Switch
+
+final class HotkeyDecoderTests: XCTestCase {
+
+    /// Convenience wrapper so each case stays a single readable line.
+    private func decode(
+        key keyCode: Int,
+        type: CGEventType = .keyDown,
+        cmd: Bool = false, opt: Bool = false, shift: Bool = false,
+        state: SwitcherState,
+        char: Character? = nil
+    ) -> DecoderResult {
+        HotkeyDecoder.decode(
+            type: type,
+            keyCode: keyCode,
+            flagsMaskCommand: cmd,
+            flagsMaskOption: opt,
+            flagsMaskShift: shift,
+            state: state,
+            keyDownCharacter: char
+        )
+    }
+
+    private let cycle = SwitcherState.holdCycle(modifier: .cmd, mode: .allWindows)
+    private let filtering = SwitcherState.filter(mode: .allWindows)
+
+    // MARK: - Closed
+
+    func testClosedConsumesCmdTab() {
+        XCTAssertEqual(decode(key: kVK_Tab, cmd: true, state: .closed), .event(.openAllWindows))
+    }
+
+    func testClosedConsumesOptTab() {
+        XCTAssertEqual(decode(key: kVK_Tab, opt: true, state: .closed), .event(.openCurrentApp))
+    }
+
+    func testClosedPassesThroughOtherKeys() {
+        XCTAssertEqual(decode(key: kVK_ANSI_A, cmd: true, state: .closed), .passthrough)
+    }
+
+    // MARK: - HoldCycle
+
+    func testHoldCycleConsumesTab() {
+        XCTAssertEqual(decode(key: kVK_Tab, cmd: true, state: cycle), .event(.tabForward))
+    }
+
+    func testHoldCycleShiftTab() {
+        XCTAssertEqual(decode(key: kVK_Tab, cmd: true, shift: true, state: cycle), .event(.tabBackward))
+    }
+
+    func testHoldCycleEscape() {
+        XCTAssertEqual(decode(key: kVK_Escape, cmd: true, state: cycle), .event(.escape))
+    }
+
+    func testHoldCycleActionKeys() {
+        let cases: [(Int, WindowAction)] = [
+            (kVK_ANSI_W, .closeWindow),
+            (kVK_ANSI_Q, .quitApp),
+            (kVK_ANSI_H, .hideApp),
+            (kVK_ANSI_M, .minimizeWindow),
+        ]
+        for (key, expected) in cases {
+            XCTAssertEqual(decode(key: key, cmd: true, state: cycle), .event(.action(expected)), "keyCode \(key)")
+        }
+    }
+
+    func testHoldCycleSEntersFilterMode() {
+        XCTAssertEqual(decode(key: kVK_ANSI_S, cmd: true, state: cycle), .event(.enterFilterMode))
+    }
+
+    func testHoldCycleArrowKeys() {
+        XCTAssertEqual(decode(key: kVK_DownArrow, cmd: true, state: cycle), .event(.arrowDown))
+        XCTAssertEqual(decode(key: kVK_UpArrow,   cmd: true, state: cycle), .event(.arrowUp))
+    }
+
+    func testHoldCycleVimNavigation() {
+        XCTAssertEqual(decode(key: kVK_ANSI_J, cmd: true, state: cycle), .event(.arrowDown))
+        XCTAssertEqual(decode(key: kVK_ANSI_K, cmd: true, state: cycle), .event(.arrowUp))
+    }
+
+    func testFlagsChangedCmdReleaseConfirms() {
+        // Cmd up in HoldCycle(cmd) decodes as modifierUp(.cmd).
+        XCTAssertEqual(
+            decode(key: kVK_Command, type: .flagsChanged, state: cycle),
+            .event(.modifierUp(.cmd))
+        )
+    }
+
+    // MARK: - Filter
+
+    func testFilterModeCharacterTyping() {
+        XCTAssertEqual(decode(key: kVK_ANSI_A, state: filtering, char: "a"), .event(.character("a")))
+    }
+
+    func testFilterModeEnter() {
+        XCTAssertEqual(decode(key: kVK_Return, state: filtering), .event(.enter))
+    }
+
+    func testFilterModeBackspace() {
+        XCTAssertEqual(decode(key: kVK_Delete, state: filtering), .event(.backspace))
+    }
+
+    func testFilterModeCtrlHIsBackspace() {
+        // Ctrl+H produces 0x08 (ASCII BS) via keyboardGetUnicodeString.
+        let bs = Character(UnicodeScalar(0x08)!)
+        XCTAssertEqual(decode(key: kVK_ANSI_H, state: filtering, char: bs), .event(.backspace))
+    }
+
+    func testFilterModeActionLettersTypeAsCharacters() {
+        // In filter mode w/q/h/m must type, not trigger actions — otherwise filtering
+        // for "WezTerm" or "Notion" is impossible.
+        for (key, ch) in [(kVK_ANSI_W, "w"), (kVK_ANSI_Q, "q"), (kVK_ANSI_H, "h"), (kVK_ANSI_M, "m")] {
+            let c = Character(ch)
+            XCTAssertEqual(decode(key: key, state: filtering, char: c), .event(.character(c)), "key \(ch)")
+        }
+    }
+}
