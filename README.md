@@ -2,6 +2,8 @@
 
 A personal macOS window switcher. Replaces `Cmd+Tab` with a list of individual windows instead of apps.
 
+![Screenshot](./docs/switch.png)
+
 ## Usage
 
 Hold `Cmd` and press `Tab` to open the switcher. Keep `Cmd` held while you navigate, then release it to activate the highlighted window.
