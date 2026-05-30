@@ -1,47 +1,46 @@
 # Switch
 
-A personal macOS window switcher. Replaces `Cmd+Tab` with a list of individual windows instead of apps.
+A personal macOS window switcher. Replaces <kbd>Cmd</kbd>+<kbd>Tab</kbd> with a list of individual windows instead of apps.
 
 ![Screenshot](./docs/switch.png)
 
 ## Usage
 
-Hold `Cmd` and press `Tab` to open the switcher. Keep `Cmd` held while you navigate, then release it to activate the highlighted window.
+Hold <kbd>Cmd</kbd> and press <kbd>Tab</kbd> to open the switcher. Keep <kbd>Cmd</kbd> held while you navigate, then release it to activate the highlighted window.
 
-Use `Opt+Tab` instead for windows of the current app only.
+Use <kbd>Opt</kbd>+<kbd>Tab</kbd> instead for windows of the current app only.
 
-The list is grouped: on-screen first, then `Minimized`, then `Hidden`. Picking a minimized or hidden row un-minimizes / un-hides before raising.
+The list is grouped: on-screen first, then **Minimized**, then **Hidden**. Picking a minimized or hidden row un-minimizes / un-hides before raising.
 
 ## Keys
 
 While the switcher is open with the modifier held:
 
-| Key                                     | Action                                |
-| --------------------------------------- | ------------------------------------- |
-| `Tab` / `Shift+Tab`, `↓` / `↑`, `j`/`k` | Next / previous row                   |
-| Two-finger swipe ↓ / ↑                  | Next / previous row (works globally)  |
-| `w` / `q` / `h` / `m`                   | Close window / Quit / Hide / Minimize |
-| `s`                                     | Switch to filter-typing mode          |
-| `Cmd+,`                                 | Open Settings                         |
-| Release modifier, or mouse click        | Activate selected, close panel        |
-| `Escape`                                | Cancel                                |
+| Key                                                                                                                                | Action                                |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd>, <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>j</kbd>/<kbd>k</kbd>, Two-finger swipe ↓ / ↑ | Next / previous row                   |
+| <kbd>w</kbd> / <kbd>q</kbd> / <kbd>h</kbd> / <kbd>m</kbd>                                                                          | Close window / Quit / Hide / Minimize |
+| <kbd>s</kbd>                                                                                                                       | Switch to filter-typing mode          |
+| <kbd>Cmd</kbd>+<kbd>,</kbd>                                                                                                        | Open Settings                         |
+| Release modifier, or mouse click                                                                                                   | Activate selected, close panel        |
+| <kbd>Escape</kbd>                                                                                                                  | Cancel                                |
 
 In filter mode (modifier may be released), the navigation/activation keys still apply, plus:
 
-| Key               | Action                         |
-| ----------------- | ------------------------------ |
-| Letters / digits  | Append to filter, list narrows |
-| `Backspace`, `^H` | Delete one character           |
-| `^W`              | Delete previous word           |
-| `Enter`           | Activate selected              |
+| Key                                                | Action                         |
+| -------------------------------------------------- | ------------------------------ |
+| Letters / digits                                   | Append to filter, list narrows |
+| <kbd>Backspace</kbd>, <kbd>Ctrl</kbd>+<kbd>H</kbd> | Delete one character           |
+| <kbd>Ctrl</kbd>+<kbd>W</kbd>                       | Delete previous word           |
+| <kbd>Enter</kbd>                                   | Activate selected              |
 
 Matching is case- and diacritic-insensitive substring. Whitespace splits the filter into tokens that must all match.
 
-Quit Switch from the Settings window, or `Cmd+Q` when the window is focused.
+Quit Switch from the Settings window, or <kbd>Cmd</kbd>+<kbd>Q</kbd> when the window is focused.
 
 ## Build
 
-Requires macOS 26+, Xcode 26+ (macOS 26 SDK), and [`xcodegen`](https://github.com/yonaskolb/XcodeGen):
+Requires macOS 26+, Xcode 26+, and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
 
 ```console
 $ brew install xcodegen
@@ -58,9 +57,9 @@ Switch installs a session-level `CGEvent` tap and reads other apps' windows via 
 
 The build is ad-hoc signed (`CODE_SIGN_IDENTITY: "-"`), so every rebuild changes the code hash. After rebuilding, remove and re-add the entry in the Accessibility list, otherwise the tap silently receives no events.
 
-## Run at login
+## Run at Login
 
-`Cmd+,` → check **Launch at login**. macOS may report **requires approval**. Enable the entry in **System Settings** → **General** → **Login Items & Extensions**.
+<kbd>Cmd</kbd>+<kbd>,</kbd> → check **Launch at login**. macOS may report requires approval. Enable the entry in **System Settings** → **General** → **Login Items & Extensions**.
 
 ## How to Contribute
 
