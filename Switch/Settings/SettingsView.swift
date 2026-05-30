@@ -4,6 +4,12 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var loginItem = LoginItem()
 
+    /// "Version 0.1.0" — pulled from the bundle's Info.plist at runtime.
+    private static let versionString: String = {
+        let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        return "Version \(short)"
+    }()
+
     var body: some View {
         VStack(spacing: 0) {
             Form {
@@ -22,6 +28,9 @@ struct SettingsView: View {
             Divider()
 
             HStack {
+                Text(Self.versionString)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
                 Spacer()
                 Button("Quit Switch") {
                     NSApp.terminate(nil)
