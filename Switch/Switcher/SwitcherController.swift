@@ -69,6 +69,9 @@ final class SwitcherController: ObservableObject {
         case (.filter, .backspace):
             if !filter.isEmpty { filter.removeLast() }
             applyFilter()
+        case (.filter, .deleteWord):
+            deleteLastWord()
+            applyFilter()
 
         default:
             break   // swallow stray events while open
@@ -177,6 +180,12 @@ final class SwitcherController: ObservableObject {
             rows = snapshot
         }
         selection = rows.isEmpty ? 0 : min(selection, rows.count - 1)
+    }
+
+    /// Ctrl+W: drop trailing whitespace, then the run of non-whitespace before it.
+    private func deleteLastWord() {
+        while let last = filter.last, last.isWhitespace { filter.removeLast() }
+        while let last = filter.last, !last.isWhitespace { filter.removeLast() }
     }
 
     private func applyFilter() {

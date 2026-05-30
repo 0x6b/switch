@@ -30,6 +30,7 @@ In filter mode (modifier may be released), the navigation/activation keys still 
 | ----------------- | ------------------------------ |
 | Letters / digits  | Append to filter, list narrows |
 | `Backspace`, `^H` | Delete one character           |
+| `^W`              | Delete previous word           |
 | `Enter`           | Activate selected              |
 
 Matching is case- and diacritic-insensitive substring. Whitespace splits the filter into tokens that must all match.

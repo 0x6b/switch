@@ -60,6 +60,7 @@ enum SwitcherEvent: Equatable {
     case action(WindowAction)
     case character(Character)
     case backspace
+    case deleteWord           // Ctrl+W: delete the word before the cursor
 }
 
 enum HandleResult: Equatable {

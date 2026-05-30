@@ -180,6 +180,23 @@ final class SwitcherControllerTests: XCTestCase {
         XCTAssertEqual(controller.rows.map(\.id), [a.id, b.id, c.id])
     }
 
+    func testDeleteWordRemovesPreviousWord() {
+        provider.allWindows = [makeEntry(app: "Alpha"), makeEntry(app: "Beta")]
+        _ = controller.handle(.openAllWindows)
+        _ = controller.handle(.enterFilterMode)
+        for ch in "alpha one" { _ = controller.handle(.character(ch)) }
+        XCTAssertEqual(controller.filter, "alpha one")
+
+        _ = controller.handle(.deleteWord)
+        XCTAssertEqual(controller.filter, "alpha ", "drops the last word, keeps the separating space")
+
+        _ = controller.handle(.deleteWord)
+        XCTAssertEqual(controller.filter, "", "trailing space then the remaining word are removed")
+
+        _ = controller.handle(.deleteWord)
+        XCTAssertEqual(controller.filter, "", "no-op on an empty filter")
+    }
+
     func testFilterTabAndArrowsNavigateFilteredRows() {
         let a = makeEntry(app: "Alpha")
         let b = makeEntry(app: "Beta")

@@ -109,6 +109,12 @@ final class HotkeyDecoderTests: XCTestCase {
         XCTAssertEqual(decode(key: kVK_ANSI_H, state: filtering, char: bs), .event(.backspace))
     }
 
+    func testFilterModeCtrlWIsDeleteWord() {
+        // Ctrl+W produces 0x17 (ASCII ETB) via keyboardGetUnicodeString.
+        let etb = Character(UnicodeScalar(0x17)!)
+        XCTAssertEqual(decode(key: kVK_ANSI_W, state: filtering, char: etb), .event(.deleteWord))
+    }
+
     func testFilterModeActionLettersTypeAsCharacters() {
         // In filter mode w/q/h/m must type, not trigger actions — otherwise filtering
         // for "WezTerm" or "Notion" is impossible.

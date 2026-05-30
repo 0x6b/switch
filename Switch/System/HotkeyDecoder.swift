@@ -83,9 +83,11 @@ enum HotkeyDecoder {
             guard let ch = character, let scalar = ch.unicodeScalars.first else {
                 return .consume
             }
-            // Ctrl+H (BS) or forward DEL → backspace. Other non-printables are
-            // swallowed but never inserted into the filter — see controller.
+            // Ctrl+H (BS) or forward DEL → backspace. Ctrl+W (ETB) → delete word.
+            // Other non-printables are swallowed but never inserted into the
+            // filter — see controller.
             if scalar.value == 0x08 || scalar.value == 0x7F { return .event(.backspace) }
+            if scalar.value == 0x17 { return .event(.deleteWord) }
             return .event(.character(ch))
         }
     }
