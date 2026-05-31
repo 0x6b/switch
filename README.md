@@ -38,6 +38,23 @@ Matching is case- and diacritic-insensitive substring. Whitespace splits the fil
 
 Quit Switch from the Settings window, or <kbd>Cmd</kbd>+<kbd>Q</kbd> when the window is focused.
 
+## Install
+
+Download the latest `Switch-<version>.zip` with the [GitHub CLI](https://cli.github.com/) and unzip it:
+
+```console
+$ gh release download --repo 0x6b/switch --pattern 'Switch-*.zip'
+$ unzip -o Switch-*.zip -d ~/bin
+```
+
+`gh` (and `curl`) don't set the quarantine flag, so the app launches without a Gatekeeper prompt.
+
+The app is not notarized. If you download the zip through a browser instead, macOS quarantines it; strip the flag before launching:
+
+```console
+$ xattr -dr com.apple.quarantine ~/bin/Switch.app
+```
+
 ## Build
 
 Requires macOS 26+, Xcode 26+, and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
