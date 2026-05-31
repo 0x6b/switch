@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version override (e.g. 0.2.2). Defaults to the app's Info.plist value."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Build release
+        run: make build
+
+      - name: Package app
+        id: package
+        env:
+          VERSION_INPUT: ${{ github.event.inputs.version }}
+        run: |
+          APP="build/DerivedData/Build/Products/Release/Switch.app"
+          VERSION="${VERSION_INPUT:-$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$APP/Contents/Info.plist")}"
+          ZIP="Switch-${VERSION}.zip"
+          ditto -c -k --keepParent "$APP" "$ZIP"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: Switch-${{ steps.package.outputs.version }}
+          path: ${{ steps.package.outputs.zip }}
+
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${GITHUB_REF_NAME}" "${{ steps.package.outputs.zip }}" --clobber
