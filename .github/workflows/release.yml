@@ -44,8 +44,11 @@ jobs:
           name: Switch-${{ steps.package.outputs.version }}
           path: ${{ steps.package.outputs.zip }}
 
-      - name: Attach to release
+      - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${GITHUB_REF_NAME}" "${{ steps.package.outputs.zip }}" --clobber
+          ZIP: ${{ steps.package.outputs.zip }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" "$ZIP" --generate-notes \
+            || gh release upload "${GITHUB_REF_NAME}" "$ZIP" --clobber
