@@ -23,7 +23,7 @@ targets:
         LSUIElement: true
         CFBundleName: Switch
         CFBundleDisplayName: Switch
-        CFBundleShortVersionString: "0.2.2"
+        CFBundleShortVersionString: "0.3.0"
         NSAccessibilityUsageDescription: "Switch needs Accessibility access to read window lists and intercept Cmd+Tab / Opt+Tab globally."
         NSPrincipalClass: NSApplication
     settings:
