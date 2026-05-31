@@ -55,6 +55,8 @@ enum HotkeyDecoder {
     private static let holdCycleMap: [Int: SwitcherEvent] = [
         kVK_DownArrow: .arrowDown, kVK_ANSI_J: .arrowDown,
         kVK_UpArrow:   .arrowUp,   kVK_ANSI_K: .arrowUp,
+        kVK_PageDown:  .arrowDown, kVK_PageUp:  .arrowUp,
+        kVK_End:       .moveToBottom, kVK_Home: .moveToTop,
         kVK_Escape:    .escape,
         kVK_ANSI_W:    .action(.closeWindow),
         kVK_ANSI_Q:    .action(.quitApp),
@@ -74,8 +76,10 @@ enum HotkeyDecoder {
         // w/q/h/m. Action keys are only available in HoldCycle.
         switch keyCode {
         case kVK_Tab:                              return .event(shift ? .tabBackward : .tabForward)
-        case kVK_DownArrow:                        return .event(.arrowDown)
-        case kVK_UpArrow:                          return .event(.arrowUp)
+        case kVK_DownArrow, kVK_PageDown:          return .event(.arrowDown)
+        case kVK_UpArrow, kVK_PageUp:              return .event(.arrowUp)
+        case kVK_Home:                             return .event(.moveToTop)
+        case kVK_End:                              return .event(.moveToBottom)
         case kVK_Return, kVK_ANSI_KeypadEnter:     return .event(.enter)
         case kVK_Escape:                           return .event(.escape)
         case kVK_Delete:                           return .event(.backspace)

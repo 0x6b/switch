@@ -1,11 +1,19 @@
 import AppKit
 import SwiftUI
 
+/// NSWindow that closes on Escape. `cancelOperation(_:)` is the action AppKit sends
+/// up the responder chain for Esc (and Cmd-.); the default NSWindow ignores it.
+private final class SettingsWindow: NSWindow {
+    override func cancelOperation(_ sender: Any?) {
+        performClose(sender)
+    }
+}
+
 final class SettingsWindowController: NSWindowController, NSWindowDelegate {
     init() {
         let hosting = NSHostingController(rootView: SettingsView())
         hosting.sizingOptions = [.preferredContentSize]
-        let window = NSWindow(
+        let window = SettingsWindow(
             contentRect: NSRect(x: 0, y: 0, width: 360, height: 160),
             styleMask: [.titled, .closable],
             backing: .buffered,

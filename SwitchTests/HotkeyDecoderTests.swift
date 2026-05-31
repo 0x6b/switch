@@ -81,6 +81,13 @@ final class HotkeyDecoderTests: XCTestCase {
         XCTAssertEqual(decode(key: kVK_ANSI_K, cmd: true, state: cycle), .event(.arrowUp))
     }
 
+    func testHoldCyclePageAndHomeEndKeys() {
+        XCTAssertEqual(decode(key: kVK_PageDown, cmd: true, state: cycle), .event(.arrowDown))
+        XCTAssertEqual(decode(key: kVK_PageUp,   cmd: true, state: cycle), .event(.arrowUp))
+        XCTAssertEqual(decode(key: kVK_Home,     cmd: true, state: cycle), .event(.moveToTop))
+        XCTAssertEqual(decode(key: kVK_End,      cmd: true, state: cycle), .event(.moveToBottom))
+    }
+
     func testFlagsChangedCmdReleaseConfirms() {
         // Cmd up in HoldCycle(cmd) decodes as modifierUp(.cmd).
         XCTAssertEqual(
@@ -97,6 +104,13 @@ final class HotkeyDecoderTests: XCTestCase {
 
     func testFilterModeEnter() {
         XCTAssertEqual(decode(key: kVK_Return, state: filtering), .event(.enter))
+    }
+
+    func testFilterModePageAndHomeEndKeys() {
+        XCTAssertEqual(decode(key: kVK_PageDown, state: filtering), .event(.arrowDown))
+        XCTAssertEqual(decode(key: kVK_PageUp,   state: filtering), .event(.arrowUp))
+        XCTAssertEqual(decode(key: kVK_Home,     state: filtering), .event(.moveToTop))
+        XCTAssertEqual(decode(key: kVK_End,      state: filtering), .event(.moveToBottom))
     }
 
     func testFilterModeBackspace() {

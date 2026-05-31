@@ -52,6 +52,8 @@ enum SwitcherEvent: Equatable {
     case tabBackward
     case arrowDown
     case arrowUp
+    case moveToTop            // Home: jump to first row
+    case moveToBottom         // End: jump to last row
     case scrollDown
     case scrollUp
     case enterFilterMode      // S (with modifier still held)

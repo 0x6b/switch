@@ -62,6 +62,27 @@ final class SwitcherControllerTests: XCTestCase {
         XCTAssertEqual(controller.selection, 1)
     }
 
+    func testMoveToTopAndBottom() {
+        provider.allWindows = [makeEntry(), makeEntry(), makeEntry()]
+        _ = controller.handle(.openAllWindows)
+        XCTAssertEqual(controller.selection, 1)
+
+        _ = controller.handle(.moveToBottom)
+        XCTAssertEqual(controller.selection, 2)
+
+        _ = controller.handle(.moveToTop)
+        XCTAssertEqual(controller.selection, 0)
+    }
+
+    func testMoveToTopAndBottomEmptyStaysAtZero() {
+        provider.allWindows = []
+        _ = controller.handle(.openAllWindows)
+        _ = controller.handle(.moveToBottom)
+        XCTAssertEqual(controller.selection, 0)
+        _ = controller.handle(.moveToTop)
+        XCTAssertEqual(controller.selection, 0)
+    }
+
     func testEmptySnapshotKeepsSelectionAtZero() {
         provider.allWindows = []
         _ = controller.handle(.openAllWindows)

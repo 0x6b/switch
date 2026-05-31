@@ -45,6 +45,10 @@ final class SwitcherController: ObservableObject {
             advance(by: 1)
         case (_, .tabBackward), (_, .arrowUp):
             advance(by: -1)
+        case (_, .moveToTop):
+            if !rows.isEmpty { selection = 0 }
+        case (_, .moveToBottom):
+            if !rows.isEmpty { selection = rows.count - 1 }
         case (_, .scrollDown):
             advance(by: 1, wrap: false)
         case (_, .scrollUp):
