@@ -49,7 +49,7 @@ final class WindowList: WindowProviding {
             else { return nil }
 
             // kCGWindowName requires Screen Recording permission; prefer AX, fall back to CG.
-            let axTitle: String = axWindow.attribute(kAXTitleAttribute as String) ?? ""
+            let axTitle = windowTitle(axWindow)
             let cgTitle = info[kCGWindowName as String] as? String ?? ""
 
             return WindowEntry(
@@ -101,13 +101,30 @@ final class WindowList: WindowProviding {
                     appName: app.localizedName ?? "",
                     appIcon: app.icon ?? NSImage(),
                     bundleID: app.bundleIdentifier,
-                    windowTitle: w.attribute(kAXTitleAttribute as String) ?? "",
+                    windowTitle: windowTitle(w),
                     cgWindowID: cgID,
                     axWindow: w,
                     section: section
                 )
             }
         }
+    }
+
+    // MARK: - Titles
+
+    private func windowTitle(_ window: AXUIElement) -> String {
+        if let title: String = window.attribute(kAXTitleAttribute as String), !title.isEmpty {
+            return title
+        }
+        // Chrome PWA windows (e.g. Google Meet) fail AXTitle on the window element;
+        // the document title is on the web-content child group instead.
+        let children: [AXUIElement] = window.attribute(kAXChildrenAttribute as String) ?? []
+        for child in children {
+            if let title: String = child.attribute(kAXTitleAttribute as String), !title.isEmpty {
+                return title
+            }
+        }
+        return ""
     }
 
     // MARK: - AX resolution
