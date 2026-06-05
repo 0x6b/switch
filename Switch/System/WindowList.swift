@@ -5,6 +5,18 @@ final class WindowList: WindowProviding {
     private var axAppCache: [pid_t: AXUIElement] = [:]
     private let ourPID = getpid()
 
+    /// Some apps keep phantom layer-0 windows on screen (e.g. CleanMyMac's
+    /// untitled AXButton/AXUnknown helpers). Real windows report one of these.
+    private static let allowedSubroles: Set<String> = [
+        kAXStandardWindowSubrole as String,
+        kAXDialogSubrole as String,
+    ]
+
+    private func isSwitchTarget(_ window: AXUIElement) -> Bool {
+        guard let subrole: String = window.attribute(kAXSubroleAttribute as String) else { return false }
+        return Self.allowedSubroles.contains(subrole)
+    }
+
     func snapshot(mode: SwitcherMode) -> [WindowEntry] {
         let pidFilter: pid_t? = switch mode {
         case .allWindows: nil
@@ -45,7 +57,8 @@ final class WindowList: WindowProviding {
             guard
                 let cgID = info[kCGWindowNumber as String] as? CGWindowID,
                 let app = NSRunningApplication(processIdentifier: pid),
-                let axWindow = resolveAXWindow(pid: pid, cgID: cgID)
+                let axWindow = resolveAXWindow(pid: pid, cgID: cgID),
+                isSwitchTarget(axWindow)
             else { return nil }
 
             // kCGWindowName requires Screen Recording permission; prefer AX, fall back to CG.
@@ -82,6 +95,7 @@ final class WindowList: WindowProviding {
             let pid = app.processIdentifier
             let windows: [AXUIElement] = axApp(for: pid).attribute(kAXWindowsAttribute as String) ?? []
             return windows.compactMap { w in
+                guard isSwitchTarget(w) else { return nil }
                 let cgID = w.windowID()
                 if let cgID, excluded.contains(cgID) { return nil }
 
