@@ -80,10 +80,11 @@ final class HotkeyTap {
         let shift = flags.contains(.maskShift)
         let keyCode = Int(event.getIntegerValueField(.keyboardEventKeycode))
 
-        // Settings shortcut: Cmd+, opens the Settings window, but only while the
-        // switcher is open. When closed we must not swallow it — this is a global
-        // session tap, so consuming Cmd+, here would steal it from every app.
-        if type == .keyDown, cmd, !opt, keyCode == kVK_ANSI_Comma,
+        // Settings shortcut: , with the held modifier (Cmd or Opt) opens the
+        // Settings window, but only while the switcher is open. When closed we
+        // must not swallow it — this is a global session tap, so consuming
+        // Cmd+, here would steal it from every app.
+        if type == .keyDown, cmd || opt, keyCode == kVK_ANSI_Comma,
            stateProvider() != .closed {
             DispatchQueue.main.async { [weak self] in self?.onOpenSettings?() }
             return nil
