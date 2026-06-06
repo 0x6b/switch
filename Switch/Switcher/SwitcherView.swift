@@ -17,7 +17,7 @@ struct SwitcherView: View {
             list
         }
         .padding(.vertical, Self.outerPadding)
-        .frame(width: 600)
+        .frame(width: SwitcherPanel.fixedWidth)
         // glassEffect draws the Liquid Glass behind the content; the matching
         // clipShape keeps the selected-row highlight inside the rounded corners.
         .glassEffect(in: RoundedRectangle(cornerRadius: 12, style: .continuous))

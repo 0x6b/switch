@@ -25,6 +25,7 @@
 		9D48D2DA592EFE1BDE335BA0 /* WindowActioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A141679B29F6673352FCCC3 /* WindowActioning.swift */; };
 		A92762A632C10F4F5642ABBC /* HotkeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F583A29DD478027F921BDB /* HotkeyTap.swift */; };
 		B543FCF77A447BCE92F367E7 /* AXPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E25C07D2277E8459A24FF /* AXPrivate.swift */; };
+		B7F19BFFE1852FC126979E92 /* SwitcherPanelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */; };
 		C507A438F5526237E8847D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5F12AF6CB74E3D94879086 /* Assets.xcassets */; };
 		D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */; };
 		DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D6987F63628B899D6E3A01 /* Fakes.swift */; };
@@ -61,6 +62,7 @@
 		875A828B24B09BBA6D3C59FA /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
 		9102DB1582995F808C153632 /* SwitcherPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanel.swift; sourceTree = "<group>"; };
 		A1F452498B858964B768328B /* FilterEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngineTests.swift; sourceTree = "<group>"; };
+		A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanelTests.swift; sourceTree = "<group>"; };
 		BBF6483A308C2443F3926D7E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D49FEF92D19C9C942F07D144 /* WindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActions.swift; sourceTree = "<group>"; };
 		D598A61DC65229AE22416BE5 /* SwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */,
 				875A828B24B09BBA6D3C59FA /* SmokeTests.swift */,
 				620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */,
+				A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */,
 			);
 			path = SwitchTests;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				FB3D73FA2EBF6B0778098C04 /* HotkeyDecoderTests.swift in Sources */,
 				F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */,
 				00F833DD5D8C2A5F3DC3C425 /* SwitcherControllerTests.swift in Sources */,
+				B7F19BFFE1852FC126979E92 /* SwitcherPanelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
