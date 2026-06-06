@@ -12,23 +12,33 @@
 		1FA2720FA8C77E4F58A50C36 /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49FEF92D19C9C942F07D144 /* WindowActions.swift */; };
 		22D9B19DC9837DAFE987330C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */; };
 		2552BE6B630F83F5C06D1F6E /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */; };
+		2C133400DDFBEFE3BE6E4917 /* LauncherConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F298F4405F1BB17A328263 /* LauncherConfig.swift */; };
 		3524E2807DD9B649063A0D96 /* SwitcherPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9102DB1582995F808C153632 /* SwitcherPanel.swift */; };
 		38189ADAED2DED0A55580DCE /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B8517F9A57D7837F63D8C /* LoginItem.swift */; };
 		3A3705675983530269F57F20 /* SwitcherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */; };
 		419854E47745D048341884BA /* WindowEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB880FB4DBE25B99B878B33F /* WindowEntry.swift */; };
 		45DF39AD8252D2A1602FFAA6 /* WindowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809E63E8CF3BAE25E7D78DD /* WindowList.swift */; };
+		562C1F404F81884E35E592A4 /* LauncherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822F2A7C250D153D7257C89 /* LauncherSettingsView.swift */; };
 		5DB71BBD7257AAA895F6039C /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */; };
+		60A8EA211A0A27844EE3587D /* LauncherTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3EDD53822975D404B59B9B /* LauncherTarget.swift */; };
+		60AE49C7BF3CDA1D89820CFB /* LauncherConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28B2656DCB216F1BEDC19A /* LauncherConfigTests.swift */; };
+		66B1EE34719731B75AB5F9DB /* LauncherTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */; };
+		6C2A540E3B3396AA921FAD42 /* LauncherDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E001AE899BD53ADDC7694 /* LauncherDecoderTests.swift */; };
 		6DB0E41581E54D8EE77A8B56 /* WindowProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E1C6D446D8A510FFE99737 /* WindowProviding.swift */; };
 		8E82ACF5642A48B225D2F8C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF6483A308C2443F3926D7E /* SettingsView.swift */; };
 		909A2A1545614BA6E86188C7 /* SwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */; };
 		91F6DC6586035974993D81F3 /* SwitcherState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */; };
+		931E0D8404A84BA6D150E71C /* SettingsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262616FA7D14B2B16A260293 /* SettingsCard.swift */; };
 		9D48D2DA592EFE1BDE335BA0 /* WindowActioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A141679B29F6673352FCCC3 /* WindowActioning.swift */; };
 		A92762A632C10F4F5642ABBC /* HotkeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F583A29DD478027F921BDB /* HotkeyTap.swift */; };
 		B543FCF77A447BCE92F367E7 /* AXPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E25C07D2277E8459A24FF /* AXPrivate.swift */; };
 		B7F19BFFE1852FC126979E92 /* SwitcherPanelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */; };
 		C507A438F5526237E8847D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5F12AF6CB74E3D94879086 /* Assets.xcassets */; };
+		C697FBD22B7967A9905AD6D9 /* KeyRecorderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0231FB5F1297C3C42869A6BA /* KeyRecorderField.swift */; };
 		D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */; };
 		DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D6987F63628B899D6E3A01 /* Fakes.swift */; };
+		E859BD21A71D30682ECF73D0 /* LauncherDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC136D8E865BA55242EC02CC /* LauncherDecoder.swift */; };
+		F040CB68B8FBADF90AB78BDC /* KeyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090210997E65D9C3CDBA9C80 /* KeyName.swift */; };
 		F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875A828B24B09BBA6D3C59FA /* SmokeTests.swift */; };
 		FB3D73FA2EBF6B0778098C04 /* HotkeyDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */; };
 /* End PBXBuildFile section */
@@ -44,18 +54,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0231FB5F1297C3C42869A6BA /* KeyRecorderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRecorderField.swift; sourceTree = "<group>"; };
 		027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyDecoder.swift; sourceTree = "<group>"; };
 		04F583A29DD478027F921BDB /* HotkeyTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyTap.swift; sourceTree = "<group>"; };
 		053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		090210997E65D9C3CDBA9C80 /* KeyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyName.swift; sourceTree = "<group>"; };
 		0A5B8517F9A57D7837F63D8C /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherState.swift; sourceTree = "<group>"; };
 		190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherView.swift; sourceTree = "<group>"; };
 		1A141679B29F6673352FCCC3 /* WindowActioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActioning.swift; sourceTree = "<group>"; };
 		1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
 		21E1C6D446D8A510FFE99737 /* WindowProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowProviding.swift; sourceTree = "<group>"; };
+		262616FA7D14B2B16A260293 /* SettingsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCard.swift; sourceTree = "<group>"; };
 		2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyDecoderTests.swift; sourceTree = "<group>"; };
+		2E3EDD53822975D404B59B9B /* LauncherTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherTarget.swift; sourceTree = "<group>"; };
 		2E5F12AF6CB74E3D94879086 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		33F298F4405F1BB17A328263 /* LauncherConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherConfig.swift; sourceTree = "<group>"; };
+		359E001AE899BD53ADDC7694 /* LauncherDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherDecoderTests.swift; sourceTree = "<group>"; };
+		3822F2A7C250D153D7257C89 /* LauncherSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherSettingsView.swift; sourceTree = "<group>"; };
 		411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4A28B2656DCB216F1BEDC19A /* LauncherConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherConfigTests.swift; sourceTree = "<group>"; };
+		5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherTargetTests.swift; sourceTree = "<group>"; };
 		620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherControllerTests.swift; sourceTree = "<group>"; };
 		70792BF4FE8DF7D24D594636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		72D6987F63628B899D6E3A01 /* Fakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fakes.swift; sourceTree = "<group>"; };
@@ -69,6 +88,7 @@
 		D72E25C07D2277E8459A24FF /* AXPrivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXPrivate.swift; sourceTree = "<group>"; };
 		D7A080B4E6778888AE4E2CCB /* Switch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Switch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D809E63E8CF3BAE25E7D78DD /* WindowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowList.swift; sourceTree = "<group>"; };
+		EC136D8E865BA55242EC02CC /* LauncherDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherDecoder.swift; sourceTree = "<group>"; };
 		F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherController.swift; sourceTree = "<group>"; };
 		FB880FB4DBE25B99B878B33F /* WindowEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +111,17 @@
 			);
 			sourceTree = "<group>";
 		};
+		4C1433E3149855D44138CFD0 /* Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				090210997E65D9C3CDBA9C80 /* KeyName.swift */,
+				33F298F4405F1BB17A328263 /* LauncherConfig.swift */,
+				EC136D8E865BA55242EC02CC /* LauncherDecoder.swift */,
+				2E3EDD53822975D404B59B9B /* LauncherTarget.swift */,
+			);
+			path = Launcher;
+			sourceTree = "<group>";
+		};
 		8199008F12A2832CAF037A68 /* Switcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +139,7 @@
 			children = (
 				FB7593B85015FCCB70191654 /* App */,
 				3268259CFBCA185D09050061 /* Filter */,
+				4C1433E3149855D44138CFD0 /* Launcher */,
 				D9BFD0EE4C93CCD5696EC821 /* Resources */,
 				F5E92E1A5102B1FD10DE687A /* Settings */,
 				8199008F12A2832CAF037A68 /* Switcher */,
@@ -150,7 +182,10 @@
 		F5E92E1A5102B1FD10DE687A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0231FB5F1297C3C42869A6BA /* KeyRecorderField.swift */,
+				3822F2A7C250D153D7257C89 /* LauncherSettingsView.swift */,
 				0A5B8517F9A57D7837F63D8C /* LoginItem.swift */,
+				262616FA7D14B2B16A260293 /* SettingsCard.swift */,
 				BBF6483A308C2443F3926D7E /* SettingsView.swift */,
 				053AA8531DD3B096F23CBF88 /* SettingsWindowController.swift */,
 			);
@@ -163,6 +198,9 @@
 				72D6987F63628B899D6E3A01 /* Fakes.swift */,
 				A1F452498B858964B768328B /* FilterEngineTests.swift */,
 				2759FB3C733D3058E84D5AAE /* HotkeyDecoderTests.swift */,
+				4A28B2656DCB216F1BEDC19A /* LauncherConfigTests.swift */,
+				359E001AE899BD53ADDC7694 /* LauncherDecoderTests.swift */,
+				5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */,
 				875A828B24B09BBA6D3C59FA /* SmokeTests.swift */,
 				620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */,
 				A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */,
@@ -278,7 +316,14 @@
 				5DB71BBD7257AAA895F6039C /* FilterEngine.swift in Sources */,
 				D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */,
 				A92762A632C10F4F5642ABBC /* HotkeyTap.swift in Sources */,
+				F040CB68B8FBADF90AB78BDC /* KeyName.swift in Sources */,
+				C697FBD22B7967A9905AD6D9 /* KeyRecorderField.swift in Sources */,
+				2C133400DDFBEFE3BE6E4917 /* LauncherConfig.swift in Sources */,
+				E859BD21A71D30682ECF73D0 /* LauncherDecoder.swift in Sources */,
+				562C1F404F81884E35E592A4 /* LauncherSettingsView.swift in Sources */,
+				60A8EA211A0A27844EE3587D /* LauncherTarget.swift in Sources */,
 				38189ADAED2DED0A55580DCE /* LoginItem.swift in Sources */,
+				931E0D8404A84BA6D150E71C /* SettingsCard.swift in Sources */,
 				8E82ACF5642A48B225D2F8C3 /* SettingsView.swift in Sources */,
 				2552BE6B630F83F5C06D1F6E /* SettingsWindowController.swift in Sources */,
 				3A3705675983530269F57F20 /* SwitcherController.swift in Sources */,
@@ -300,6 +345,9 @@
 				DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */,
 				01A242EC187E2E08296A2919 /* FilterEngineTests.swift in Sources */,
 				FB3D73FA2EBF6B0778098C04 /* HotkeyDecoderTests.swift in Sources */,
+				60AE49C7BF3CDA1D89820CFB /* LauncherConfigTests.swift in Sources */,
+				6C2A540E3B3396AA921FAD42 /* LauncherDecoderTests.swift in Sources */,
+				66B1EE34719731B75AB5F9DB /* LauncherTargetTests.swift in Sources */,
 				F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */,
 				00F833DD5D8C2A5F3DC3C425 /* SwitcherControllerTests.swift in Sources */,
 				B7F19BFFE1852FC126979E92 /* SwitcherPanelTests.swift in Sources */,

@@ -3,47 +3,74 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var loginItem = LoginItem()
+    @ObservedObject var launcherStore: LauncherConfigStore
 
-    /// "Version 0.1.0" — pulled from the bundle's Info.plist at runtime.
     private static let versionString: String = {
         let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
         return "Version \(short)"
     }()
 
     var body: some View {
-        VStack(spacing: 0) {
-            Form {
-                Toggle("Launch at login", isOn: Binding(
-                    get: { loginItem.enabled },
-                    set: { loginItem.set($0) }
-                ))
-                if loginItem.requiresApproval {
-                    Text("Open System Settings → General → Login Items to approve Switch.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .formStyle(.grouped)
-
-            Divider()
-
-            HStack {
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(spacing: 6) {
+                Image(nsImage: NSApp.applicationIconImage)
+                    .resizable()
+                    .frame(width: 96, height: 96)
                 Text(Self.versionString)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 16)
+            .padding(.bottom, 12)
+
+            SettingsCard {
+                HStack {
+                    Text("Launch at login")
+                    Spacer()
+                    Toggle("", isOn: Binding(
+                        get: { loginItem.enabled },
+                        set: { loginItem.set($0) }
+                    ))
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+                    // System Settings switches are the small control size.
+                    .controlSize(.small)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+
+                Divider().padding(.leading, 12).opacity(0.5)
+
+                HStack {
+                    Text("Quit Switch")
+                    Spacer()
+                    Button("Quit") {
+                        NSApp.terminate(nil)
+                    }
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+            }
+            if loginItem.requiresApproval {
+                Text("Open System Settings → General → Login Items to approve Switch.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
-                Spacer()
-                Button("Quit Switch") {
-                    NSApp.terminate(nil)
-                }
-                .keyboardShortcut("q", modifiers: [.command])
+                    .padding(.horizontal, 4)
             }
-            .padding(12)
+
+            LauncherSettingsView(store: launcherStore)
+                .padding(.top, 12)
         }
-        .frame(width: 360)
+        .padding(16)
+        .frame(width: 480, height: 760)
+        .background(Color(nsColor: .controlBackgroundColor))
         .background {
-            // Accessory apps have no menu bar, so Cmd+W isn't wired by default.
+            // Accessory apps have no menu bar, so Cmd+W/Cmd+Q aren't wired by
+            // default. Hidden buttons supply the shortcuts.
             Button("Close") { NSApp.keyWindow?.performClose(nil) }
                 .keyboardShortcut("w", modifiers: [.command])
+                .hidden()
+            Button("Quit") { NSApp.terminate(nil) }
+                .keyboardShortcut("q", modifiers: [.command])
                 .hidden()
         }
         .onAppear { loginItem.refresh() }

@@ -1,3 +1,4 @@
+import AppKit
 import CoreGraphics
 import Carbon.HIToolbox
 import os.log
@@ -8,6 +9,12 @@ final class HotkeyTap {
     /// Called when the user presses the Settings shortcut (Cmd+,) while the
     /// switcher is open.
     var onOpenSettings: (() -> Void)?
+
+    /// Leader-key launcher, consulted for keyDown events while the switcher is
+    /// closed. Optional so the tap works without launcher configuration.
+    var launcher: LauncherDecoder?
+    /// Called when the launcher resolves a key sequence to a target to open.
+    var onLaunchApp: ((String) -> Void)?
 
     private let handler: Handler
     private let stateProvider: () -> SwitcherState
@@ -80,6 +87,28 @@ final class HotkeyTap {
            stateProvider() != .closed {
             DispatchQueue.main.async { [weak self] in self?.onOpenSettings?() }
             return nil
+        }
+
+        // Leader-key launcher: only active while the switcher is closed, so it
+        // can never swallow keys meant for cycling or filter typing. Modified
+        // keys (Cmd/Opt/Shift/Ctrl) pass through, so Cmd+Tab below is unaffected.
+        // Skipped while Switch itself is active (i.e. the Settings window is
+        // open) so the key recorder in Settings can capture the leader key.
+        if type == .keyDown, stateProvider() == .closed, !NSApp.isActive, let launcher {
+            let ctrl = flags.contains(.maskControl)
+            switch launcher.handleKeyDown(
+                keyCode: UInt16(keyCode),
+                hasModifiers: cmd || opt || shift || ctrl,
+                now: Date()
+            ) {
+            case .passthrough:
+                break
+            case .consume:
+                return nil
+            case .launch(let target):
+                DispatchQueue.main.async { [weak self] in self?.onLaunchApp?(target) }
+                return nil
+            }
         }
 
         let result = HotkeyDecoder.decode(

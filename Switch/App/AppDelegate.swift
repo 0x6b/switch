@@ -10,7 +10,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let delegate = AppDelegate()
         app.delegate = delegate
         app.setActivationPolicy(.accessory)
+        app.mainMenu = makeMainMenu()
         app.run()
+    }
+
+    /// Accessory apps have no menu bar, but AppKit still routes standard edit
+    /// key equivalents (Cmd+V, Cmd+A, …) through mainMenu. Without this, text
+    /// fields in the Settings window get no clipboard shortcuts.
+    private static func makeMainMenu() -> NSMenu {
+        let edit = NSMenu(title: "Edit")
+        edit.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
+        edit.addItem(withTitle: "Redo", action: Selector(("redo:")), keyEquivalent: "Z")
+        edit.addItem(.separator())
+        edit.addItem(withTitle: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
+        edit.addItem(withTitle: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
+        edit.addItem(withTitle: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
+        edit.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+
+        let main = NSMenu()
+        let editItem = NSMenuItem()
+        editItem.submenu = edit
+        main.addItem(editItem)
+        return main
     }
 
     private static let logger = Logger(subsystem: "io.warpnine.switch", category: "AppDelegate")
@@ -18,6 +39,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var controller: SwitcherController!
     private var panel: SwitcherPanel!
     private var tap: HotkeyTap!
+    private let launcherStore = LauncherConfigStore()
     private var cancellable: AnyCancellable?
     private var clickOutsideMonitor: Any?
     private var settingsWindowController: SettingsWindowController?
@@ -41,6 +63,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             handler: { [weak self] in self?.controller.handle($0) ?? .passthrough }
         )
         tap.onOpenSettings = { [weak self] in self?.openSettings() }
+        tap.launcher = LauncherDecoder(configProvider: { [launcherStore] in launcherStore.config })
+        tap.onLaunchApp = { target in
+            guard let url = LauncherTarget.url(from: target) else { return }
+            if url.isFileURL {
+                // Launches if not running, brings to front otherwise.
+                NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration())
+            } else {
+                NSWorkspace.shared.open(url)
+            }
+        }
         do {
             try tap.install()
         } catch {
@@ -75,7 +107,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         controller.handle(.escape)
 
         if settingsWindowController == nil {
-            settingsWindowController = SettingsWindowController()
+            settingsWindowController = SettingsWindowController(launcherStore: launcherStore)
         }
         settingsWindowController?.showAndActivate()
     }
