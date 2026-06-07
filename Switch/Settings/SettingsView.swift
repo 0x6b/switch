@@ -61,7 +61,9 @@ struct SettingsView: View {
                 .padding(.top, 12)
         }
         .padding(16)
-        .frame(width: 480, height: 760)
+        // Width only: the height follows the content, so the window shrinks
+        // while the launcher is disabled and grows when the table appears.
+        .frame(width: 480)
         .background(Color(nsColor: .controlBackgroundColor))
         .background {
             // Accessory apps have no menu bar, so Cmd+W/Cmd+Q aren't wired by

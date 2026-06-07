@@ -15,6 +15,10 @@ struct LauncherSettingsView: View {
     @State private var urlPromptShown = false
     @State private var scrollTarget: UUID?
 
+    private var launcherEnabled: Bool {
+        store.config.leaderKeyCode != nil
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Launcher")
@@ -30,29 +34,38 @@ struct LauncherSettingsView: View {
                     }
                 }
                 HStack {
-                    Text("Clearing the leader key disables the launcher.")
+                    Text(launcherEnabled
+                        ? "Clearing the leader key disables the launcher."
+                        : "Record a leader key to enable the launcher.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Spacer()
                 }
                 .padding(.horizontal, 12)
                 .padding(.bottom, 8)
-                Divider().padding(.leading, 12).opacity(0.5)
-                cardRow("Timeout (ms)") {
-                    TextField("", value: Binding(
-                        get: { store.config.timeoutMs },
-                        set: { store.config.timeoutMs = max(0, $0) }
-                    ), format: .number)
-                    .frame(width: 80)
-                    .multilineTextAlignment(.trailing)
+                if launcherEnabled {
+                    Divider().padding(.leading, 12).opacity(0.5)
+                    cardRow("Timeout (ms)") {
+                        TextField("", value: Binding(
+                            get: { store.config.timeoutMs },
+                            set: { store.config.timeoutMs = max(0, $0) }
+                        ), format: .number)
+                        .frame(width: 80)
+                        .multilineTextAlignment(.trailing)
+                    }
                 }
             }
 
-            Text("Mappings")
-                .font(.headline)
-                .padding(.top, 8)
+            if launcherEnabled {
+                Text("Mappings")
+                    .font(.headline)
+                    .padding(.top, 8)
 
-            mappingsTable
+                mappingsTable
+                    // Explicit height: the scroll view has no intrinsic size,
+                    // and the window now sizes to fit the content.
+                    .frame(height: 360)
+            }
         }
         .sheet(isPresented: $urlPromptShown) {
             AddURLSheet { append(target: $0) }
