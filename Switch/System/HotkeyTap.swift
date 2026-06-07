@@ -1,3 +1,4 @@
+import AppKit
 import CoreGraphics
 import Carbon.HIToolbox
 import os.log
@@ -8,6 +9,12 @@ final class HotkeyTap {
     /// Called when the user presses the Settings shortcut (Cmd+,) while the
     /// switcher is open.
     var onOpenSettings: (() -> Void)?
+
+    /// Leader-key launcher, consulted for keyDown events while the switcher is
+    /// closed. Optional so the tap works without launcher configuration.
+    var launcher: LauncherDecoder?
+    /// Called when the launcher resolves a key sequence to a target to open.
+    var onLaunchApp: ((String) -> Void)?
 
     private let handler: Handler
     private let stateProvider: () -> SwitcherState
@@ -73,13 +80,36 @@ final class HotkeyTap {
         let shift = flags.contains(.maskShift)
         let keyCode = Int(event.getIntegerValueField(.keyboardEventKeycode))
 
-        // Settings shortcut: Cmd+, opens the Settings window, but only while the
-        // switcher is open. When closed we must not swallow it — this is a global
-        // session tap, so consuming Cmd+, here would steal it from every app.
-        if type == .keyDown, cmd, !opt, keyCode == kVK_ANSI_Comma,
+        // Settings shortcut: , with the held modifier (Cmd or Opt) opens the
+        // Settings window, but only while the switcher is open. When closed we
+        // must not swallow it — this is a global session tap, so consuming
+        // Cmd+, here would steal it from every app.
+        if type == .keyDown, cmd || opt, keyCode == kVK_ANSI_Comma,
            stateProvider() != .closed {
             DispatchQueue.main.async { [weak self] in self?.onOpenSettings?() }
             return nil
+        }
+
+        // Leader-key launcher: only active while the switcher is closed, so it
+        // can never swallow keys meant for cycling or filter typing. Modified
+        // keys (Cmd/Opt/Shift/Ctrl) pass through, so Cmd+Tab below is unaffected.
+        // Skipped while Switch itself is active (i.e. the Settings window is
+        // open) so the key recorder in Settings can capture the leader key.
+        if type == .keyDown, stateProvider() == .closed, !NSApp.isActive, let launcher {
+            let ctrl = flags.contains(.maskControl)
+            switch launcher.handleKeyDown(
+                keyCode: UInt16(keyCode),
+                hasModifiers: cmd || opt || shift || ctrl,
+                now: Date()
+            ) {
+            case .passthrough:
+                break
+            case .consume:
+                return nil
+            case .launch(let target):
+                DispatchQueue.main.async { [weak self] in self?.onLaunchApp?(target) }
+                return nil
+            }
         }
 
         let result = HotkeyDecoder.decode(

@@ -1,10 +1,10 @@
 # Switch
 
-A personal macOS window switcher. Replaces <kbd>Cmd</kbd>+<kbd>Tab</kbd> with a list of individual windows instead of apps.
+A personal macOS window switcher and app launcher. Replaces <kbd>Cmd</kbd>+<kbd>Tab</kbd> with a list of individual windows instead of apps, and opens mapped apps and URLs with a leader key.
 
 ![Screenshot](./docs/switch.png)
 
-## Usage
+## Window Switcher
 
 Hold <kbd>Cmd</kbd> and press <kbd>Tab</kbd> to open the switcher. Keep <kbd>Cmd</kbd> held while you navigate, then release it to activate the highlighted window.
 
@@ -12,7 +12,7 @@ Use <kbd>Opt</kbd>+<kbd>Tab</kbd> instead for windows of the current app only.
 
 The list is grouped: on-screen first, then **Minimized**, then **Hidden**. Picking a minimized or hidden row un-minimizes / un-hides before raising.
 
-## Keys
+### Keys
 
 While the switcher is open with the modifier held:
 
@@ -21,7 +21,7 @@ While the switcher is open with the modifier held:
 | <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd>, <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>j</kbd>/<kbd>k</kbd>, Two-finger swipe ↓ / ↑ | Next / previous row                   |
 | <kbd>w</kbd> / <kbd>q</kbd> / <kbd>h</kbd> / <kbd>m</kbd>                                                                          | Close window / Quit / Hide / Minimize |
 | <kbd>s</kbd>                                                                                                                       | Switch to filter-typing mode          |
-| <kbd>Cmd</kbd>+<kbd>,</kbd>                                                                                                        | Open Settings                         |
+| <kbd>,</kbd>                                                                                                                       | Open Settings                         |
 | Release modifier, or mouse click                                                                                                   | Activate selected, close panel        |
 | <kbd>Escape</kbd>                                                                                                                  | Cancel                                |
 
@@ -36,7 +36,24 @@ In filter mode (modifier may be released), the navigation/activation keys still 
 
 Matching is case- and diacritic-insensitive substring. Whitespace splits the filter into tokens that must all match.
 
-Quit Switch from the Settings window, or <kbd>Cmd</kbd>+<kbd>Q</kbd> when the window is focused.
+## Launcher
+
+An optional leader-key launcher, independent of the window switcher and ported from [app-activate](https://github.com/0x6b/app-activate). Press the leader key, then a mapped key within the timeout, to open the mapped target. Press the leader key twice to use the secondary mapping set. Disabled until a leader key is recorded in Settings.
+
+A target is either an app bundle path (launched, or brought to front if running) or a URL such as `cleanshot://capture-window`.
+
+> [!NOTE]
+>
+> - The leader keystroke is consumed system-wide; the frontmost app never sees it. Keys pressed with Cmd/Opt/Ctrl/Shift pass through untouched.
+> - The launcher is inactive while the switcher is open and while the Settings window is active (so the key recorder can capture the leader key).
+
+## Settings
+
+Press <kbd>,</kbd> with the modifier held while the switcher is open to open the Settings window. It has:
+
+- **Launch at login**: macOS may report it requires approval; enable the entry in **System Settings** → **General** → **Login Items & Extensions**.
+- **Quit Switch**: also <kbd>Cmd</kbd>+<kbd>Q</kbd> while the Settings window is focused.
+- **Launcher**: the leader key, the timeout, and the key-to-target mapping table. See [Launcher](#launcher).
 
 ## Install
 
@@ -55,6 +72,10 @@ The app is not notarized. If you download the zip through a browser instead, mac
 $ xattr -dr com.apple.quarantine ~/bin/Switch.app
 ```
 
+## Accessibility
+
+Switch installs a session-level `CGEvent` tap and reads other apps' windows via the Accessibility APIs, so macOS requires Accessibility permission. On first launch it prompts and quits. Grant access in **System Settings** → **Privacy & Security** → **Accessibility**, then relaunch.
+
 ## Build
 
 Requires macOS 26+, Xcode 26+, and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
@@ -68,15 +89,7 @@ $ make install    # Test, build, and copy Switch.app to ~/bin
 $ make clean      # Remove ./build
 ```
 
-## Accessibility
-
-Switch installs a session-level `CGEvent` tap and reads other apps' windows via the Accessibility APIs, so macOS requires Accessibility permission. On first launch it prompts and quits. Grant access in **System Settings** → **Privacy & Security** → **Accessibility**, then relaunch.
-
 The build is ad-hoc signed (`CODE_SIGN_IDENTITY: "-"`), so every rebuild changes the code hash. After rebuilding, remove and re-add the entry in the Accessibility list, otherwise the tap silently receives no events.
-
-## Run at Login
-
-<kbd>Cmd</kbd>+<kbd>,</kbd> → check **Launch at login**. macOS may report requires approval. Enable the entry in **System Settings** → **General** → **Login Items & Extensions**.
 
 ## How to Contribute
 
@@ -94,6 +107,8 @@ There should be similar and/or more capable tools available in every language an
 ## Motivation
 
 I'm a loyal user of [Contexts](https://contexts.co/), which has the window-level switching model I want, for 10 years. However its last update was [2022-08-27](https://contexts.co/whats-new/) and the future of the app is uncertain although it's totally working fine on my Mac at this time of writing. I wanted to create a plan B in case it stops working in the future. This repository is my attempt to create a similar app just solely for my own use case.
+
+The launcher absorbs my separate [app-activate](https://github.com/0x6b/app-activate) daemon, so one process handles both switching and launching.
 
 ## License
 
