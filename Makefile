@@ -26,6 +26,8 @@ build: project ## Build a release into ./build
 		-derivedDataPath $(DERIVED)
 
 install: test build ## Test, build, and copy Switch.app to ~/bin
+	-killall Switch
+	tccutil reset Accessibility io.warpnine.switch
 	mkdir -p $(INSTALL_DIR)
 	rm -rf "$(INSTALL_DIR)/$(APP)"
 	cp -R "$(PRODUCT)" "$(INSTALL_DIR)/$(APP)"
