@@ -117,6 +117,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             panel.orderOut(nil)
         } else if !panel.isVisible {
             panel.show()
+        } else {
+            // Row count may have changed mid-session (a window was minimized,
+            // hidden, or closed); re-fit the height. No-op when unchanged.
+            panel.resizeToContent()
         }
     }
 
