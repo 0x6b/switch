@@ -6,6 +6,12 @@ final class SwitcherController: ObservableObject {
     @Published private(set) var selection: Int = 0
     @Published private(set) var filter: String = ""
 
+    /// Called synchronously when the switcher closes, so the host can hide the
+    /// panel immediately. Hiding via the async objectWillChange sink instead lets
+    /// SwiftUI repaint the now-empty rows first, collapsing the panel to an empty
+    /// box for one frame before it's ordered out.
+    var onClose: (() -> Void)?
+
     private var snapshot: [WindowEntry] = []
     private let provider: WindowProviding
     private let actions: WindowActioning
@@ -136,6 +142,8 @@ final class SwitcherController: ObservableObject {
         hoverEnabled = false
         pendingHoverID = nil
         state = .closed
+        // Hide synchronously, before the runloop commits the empty-row repaint.
+        onClose?()
     }
 
     private func confirm() {

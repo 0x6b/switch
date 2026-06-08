@@ -59,6 +59,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         controller = SwitcherController(provider: WindowList(), actions: WindowActions())
         panel = SwitcherPanel(rootView: SwitcherView(controller: controller))
         panel.onFirstMouseMove = { [weak self] in self?.controller.enableHover() }
+        controller.onClose = { [weak self] in self?.panel.orderOut(nil) }
 
         cancellable = controller.objectWillChange
             .receive(on: DispatchQueue.main)
