@@ -2,8 +2,8 @@ import AppKit
 import SwiftUI
 
 final class SwitcherPanel: NSPanel {
-    /// The panel's width is a design constant — SwitcherView fixes its root
-    /// frame to the same value; only the height tracks content.
+    /// The panel's width is a design constant — SwitcherView fills this width;
+    /// only the height tracks content.
     static let fixedWidth: CGFloat = 600
 
     /// Fires the first time the panel sees a mouseMoved after being shown.
@@ -11,7 +11,28 @@ final class SwitcherPanel: NSPanel {
     var onFirstMouseMove: (() -> Void)?
     private var sawMouseMove = false
 
+    /// We host SwiftUI in a manually-managed NSHostingView rather than as a
+    /// contentViewController. NSHostingController with .preferredContentSize
+    /// installs Auto Layout constraints from SwiftUI's fitting size and resizes
+    /// the window behind our back; during a height change it briefly proposes a
+    /// narrower width to the SwiftUI root, which shifts the row columns sideways
+    /// for one frame. With sizingOptions = [] and autoresizing we keep the
+    /// hosting view exactly the window width at every layout pass, and we drive
+    /// the window height ourselves via setFrame.
+    private let hostingView: NSView
+
     init(rootView: some View) {
+        let hosting = NSHostingView(rootView: rootView)
+        // Keep intrinsicContentSize so we can read fittingSize.height to drive
+        // the window height ourselves. Because the view uses an autoresizing
+        // mask (no Auto Layout constraints to the window), this intrinsic size
+        // is informational only — it never resizes the window behind our back,
+        // unlike NSHostingController's .preferredContentSize did.
+        hosting.sizingOptions = [.intrinsicContentSize]
+        hosting.translatesAutoresizingMaskIntoConstraints = true
+        hosting.autoresizingMask = [.width, .height]
+        hostingView = hosting
+
         super.init(
             contentRect: NSRect(x: 0, y: 0, width: Self.fixedWidth, height: 480),
             styleMask: [.nonactivatingPanel, .borderless],
@@ -30,14 +51,13 @@ final class SwitcherPanel: NSPanel {
         backgroundColor = .clear
         acceptsMouseMovedEvents = true
 
-        let hosting = NSHostingController(rootView: rootView)
-        hosting.sizingOptions = [.preferredContentSize]
-        contentViewController = hosting
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: Self.fixedWidth, height: 480))
+        hosting.frame = container.bounds
+        container.addSubview(hosting)
+        contentView = container
     }
 
-    /// The hosting controller (sizingOptions=.preferredContentSize) resizes the
-    /// window behind our back; a transient wrong width shifts the row columns
-    /// sideways. Pin the width — only the height is allowed to change.
+    /// Belt-and-suspenders: the width is a design constant, never animated.
     override func setFrame(_ frameRect: NSRect, display flag: Bool) {
         var rect = frameRect
         rect.size.width = Self.fixedWidth
@@ -45,51 +65,59 @@ final class SwitcherPanel: NSPanel {
     }
 
     func show() {
-        // Recompute each show because dynamic content height changes the frame.
         sawMouseMove = false
 
-        // Lay out and size to the current content before positioning, so the
-        // origin below is computed from the correct height.
-        if let content = contentViewController?.view {
-            content.layoutSubtreeIfNeeded()
-            setContentSize(content.fittingSize)
-        }
+        let size = NSSize(width: Self.fixedWidth, height: contentHeight())
 
         guard let screen = NSScreen.main else {
+            setFrame(NSRect(origin: frame.origin, size: size), display: false)
+            alphaValue = 1
             orderFrontRegardless()
             return
         }
         let screenFrame = screen.frame
         let origin = NSPoint(
-            x: screenFrame.midX - frame.width / 2,
-            y: screenFrame.maxY - screenFrame.height / 3 - frame.height
+            x: screenFrame.midX - size.width / 2,
+            y: screenFrame.maxY - screenFrame.height / 3 - size.height
         )
-        setFrameOrigin(origin)
 
-        // When the window becomes visible the hosting controller runs a layout
-        // pass that briefly resizes it to the empty-list height (~42pt) before
-        // settling on the real height — a visible vertical flicker. Order in
-        // transparent so that pass isn't drawn, then reveal once the frame
-        // matches the content's fitting size again. On a cold first show the
-        // settle can take more than one runloop tick, so poll instead of
-        // assuming one tick, with a small cap as a backstop.
-        alphaValue = 0
-        orderFrontRegardless()
-        revealWhenSettled(remainingTicks: 5)
+        setFrame(NSRect(origin: origin, size: size), display: false)
+        revealWhenLaidOut()
     }
 
-    private func revealWhenSettled(remainingTicks: Int) {
+    /// Even with the frame fully resolved before ordering in, the first on-screen
+    /// layout/compositing pass (SwiftUI + glassEffect attachment) can briefly
+    /// draw at the wrong height — a vertical flicker. Order in transparent, force
+    /// the content to lay out and draw at its final size while invisible, then
+    /// reveal on the next runloop tick (imperceptible, ~1 frame) so that pass is
+    /// never seen.
+    private func revealWhenLaidOut() {
+        alphaValue = 0
+        orderFrontRegardless()
+        contentView?.layoutSubtreeIfNeeded()
+        contentView?.displayIfNeeded()
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.alphaValue == 0 else { return }
-            let settled = self.contentViewController.map {
-                self.frame.size == $0.view.fittingSize
-            } ?? true
-            if settled || remainingTicks <= 1 {
-                self.alphaValue = 1
-            } else {
-                self.revealWhenSettled(remainingTicks: remainingTicks - 1)
-            }
+            self?.alphaValue = 1
         }
+    }
+
+    /// Re-fit the height when the row count changes mid-session. Anchors the top
+    /// edge so the panel grows/shrinks downward instead of appearing to jump.
+    /// No-op when the height is unchanged (e.g. selection-only updates), so this
+    /// is cheap to call on every controller change.
+    func resizeToContent() {
+        guard isVisible else { return }
+        let height = contentHeight()
+        guard abs(frame.size.height - height) > 0.5 else { return }
+        var rect = frame
+        rect.origin.y += rect.size.height - height
+        rect.size.height = height
+        setFrame(rect, display: true)
+    }
+
+    private func contentHeight() -> CGFloat {
+        hostingView.layoutSubtreeIfNeeded()
+        return hostingView.fittingSize.height
     }
 
     override func sendEvent(_ event: NSEvent) {

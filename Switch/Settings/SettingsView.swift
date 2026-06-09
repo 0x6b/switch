@@ -16,6 +16,8 @@ struct SettingsView: View {
                 Image(nsImage: NSApp.applicationIconImage)
                     .resizable()
                     .frame(width: 96, height: 96)
+                Link("github.com/0x6b/switch", destination: URL(string: "https://github.com/0x6b/switch")!)
+                    .font(.footnote)
                 Text(Self.versionString)
             }
             .frame(maxWidth: .infinity)

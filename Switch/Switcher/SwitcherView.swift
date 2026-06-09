@@ -17,7 +17,12 @@ struct SwitcherView: View {
             list
         }
         .padding(.vertical, Self.outerPadding)
-        .frame(width: SwitcherPanel.fixedWidth)
+        // Fill the proposed width with an explicit leading alignment rather than
+        // fixing a 600pt frame. maxWidth:.infinity defaults to .center, so if a
+        // layout pass briefly proposes a narrower width the content would be
+        // centered and jump sideways; .leading pins the left edge so it never
+        // moves. The trailing Spacer in each row absorbs the width delta.
+        .frame(maxWidth: .infinity, alignment: .leading)
         // glassEffect draws the Liquid Glass behind the content; the matching
         // clipShape keeps the selected-row highlight inside the rounded corners.
         .glassEffect(in: RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -39,7 +44,11 @@ struct SwitcherView: View {
 
     private var list: some View {
         ScrollViewReader { scrollProxy in
-            ScrollView {
+            // Hide indicators so SwiftUI never reserves the ~18pt vertical
+            // scroller gutter. That reservation briefly proposes a narrower
+            // width to the content on appearance/resize, which (combined with
+            // centering) is the source of the 1-frame horizontal column shift.
+            ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(grouped) { group in
                         if shouldShowSectionHeader(group.section) {

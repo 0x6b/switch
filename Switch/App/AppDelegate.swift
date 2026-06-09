@@ -14,10 +14,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         app.run()
     }
 
-    /// Accessory apps have no menu bar, but AppKit still routes standard edit
-    /// key equivalents (Cmd+V, Cmd+A, …) through mainMenu. Without this, text
-    /// fields in the Settings window get no clipboard shortcuts.
+    /// Accessory apps have no menu bar, but AppKit still routes standard key
+    /// equivalents (Cmd+V, Cmd+A, Cmd+Q, …) through mainMenu. Without this, the
+    /// Settings window gets no clipboard shortcuts and Cmd+Q can't quit the app.
     private static func makeMainMenu() -> NSMenu {
+        let app = NSMenu(title: "Switch")
+        app.addItem(withTitle: "Quit Switch", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+
         let edit = NSMenu(title: "Edit")
         edit.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
         edit.addItem(withTitle: "Redo", action: Selector(("redo:")), keyEquivalent: "Z")
@@ -28,6 +31,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         edit.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
 
         let main = NSMenu()
+        let appItem = NSMenuItem()
+        appItem.submenu = app
+        main.addItem(appItem)
         let editItem = NSMenuItem()
         editItem.submenu = edit
         main.addItem(editItem)
@@ -53,6 +59,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         controller = SwitcherController(provider: WindowList(), actions: WindowActions())
         panel = SwitcherPanel(rootView: SwitcherView(controller: controller))
         panel.onFirstMouseMove = { [weak self] in self?.controller.enableHover() }
+        controller.onClose = { [weak self] in self?.panel.orderOut(nil) }
 
         cancellable = controller.objectWillChange
             .receive(on: DispatchQueue.main)
@@ -117,6 +124,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             panel.orderOut(nil)
         } else if !panel.isVisible {
             panel.show()
+        } else {
+            // Row count may have changed mid-session (a window was minimized,
+            // hidden, or closed); re-fit the height. No-op when unchanged.
+            panel.resizeToContent()
         }
     }
 
