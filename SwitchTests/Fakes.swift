@@ -29,6 +29,7 @@ final class FakeWindowActions: WindowActioning {
         case quit(WindowEntry.ID)
         case hide(WindowEntry.ID)
         case minimize(WindowEntry.ID)
+        case place(WindowEntry.ID, PlacementAction)
     }
 
     var calls: [Call] = []
@@ -38,6 +39,7 @@ final class FakeWindowActions: WindowActioning {
     func quit(_ entry: WindowEntry) { calls.append(.quit(entry.id)) }
     func hide(_ entry: WindowEntry) { calls.append(.hide(entry.id)) }
     func minimize(_ entry: WindowEntry) { calls.append(.minimize(entry.id)) }
+    func place(_ entry: WindowEntry, _ action: PlacementAction) { calls.append(.place(entry.id, action)) }
 }
 
 /// Builds a synthetic WindowEntry for tests.

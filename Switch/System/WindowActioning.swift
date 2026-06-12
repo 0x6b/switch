@@ -6,4 +6,5 @@ protocol WindowActioning {
     func quit(_ entry: WindowEntry)
     func hide(_ entry: WindowEntry)
     func minimize(_ entry: WindowEntry)
+    func place(_ entry: WindowEntry, _ action: PlacementAction)
 }

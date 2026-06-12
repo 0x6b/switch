@@ -26,4 +26,28 @@ extension AXUIElement {
         let err = _AXUIElementGetWindow(self, &id)
         return err == .success ? id : nil
     }
+
+    /// Window frame in AX coordinates (top-left origin).
+    func frame() -> CGRect? {
+        guard let positionValue: AXValue = attribute(kAXPositionAttribute as String),
+              let sizeValue: AXValue = attribute(kAXSizeAttribute as String) else { return nil }
+        var origin = CGPoint.zero
+        var size = CGSize.zero
+        guard AXValueGetValue(positionValue, .cgPoint, &origin),
+              AXValueGetValue(sizeValue, .cgSize, &size) else { return nil }
+        return CGRect(origin: origin, size: size)
+    }
+
+    /// Sets the window frame in AX coordinates. Size is applied before and
+    /// after the position: macOS clamps a window's size to its current display,
+    /// so a cross-display move needs the size re-applied once the move lands.
+    func setFrame(_ rect: CGRect) {
+        var origin = rect.origin
+        var size = rect.size
+        guard let positionValue = AXValueCreate(.cgPoint, &origin),
+              let sizeValue = AXValueCreate(.cgSize, &size) else { return }
+        setAttribute(kAXSizeAttribute as String, sizeValue)
+        setAttribute(kAXPositionAttribute as String, positionValue)
+        setAttribute(kAXSizeAttribute as String, sizeValue)
+    }
 }

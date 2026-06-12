@@ -14,6 +14,7 @@ enum HotkeyDecoder {
         flagsMaskCommand: Bool,
         flagsMaskOption: Bool,
         flagsMaskShift: Bool,
+        flagsMaskControl: Bool,
         state: SwitcherState,
         keyDownCharacter: Character? = nil
     ) -> DecoderResult {
@@ -36,7 +37,7 @@ enum HotkeyDecoder {
         case .closed:
             return decodeClosed(keyCode: keyCode, cmd: flagsMaskCommand, opt: flagsMaskOption)
         case .holdCycle:
-            return decodeHoldCycle(keyCode: keyCode, shift: flagsMaskShift)
+            return decodeHoldCycle(keyCode: keyCode, shift: flagsMaskShift, ctrl: flagsMaskControl)
         case .filter:
             return decodeFilter(keyCode: keyCode, shift: flagsMaskShift, character: keyDownCharacter)
         }
@@ -65,10 +66,26 @@ enum HotkeyDecoder {
         kVK_ANSI_S:    .enterFilterMode,
     ]
 
-    private static func decodeHoldCycle(keyCode: Int, shift: Bool) -> DecoderResult {
+    private static func decodeHoldCycle(keyCode: Int, shift: Bool, ctrl: Bool) -> DecoderResult {
         if keyCode == kVK_Tab { return .event(shift ? .tabBackward : .tabForward) }
+        if let placement = placement(keyCode: keyCode, shift: shift, ctrl: ctrl) {
+            return .event(.action(.place(placement)))
+        }
         // Unknown keys are swallowed so they don't leak through to the focused app.
         return holdCycleMap[keyCode].map(DecoderResult.event) ?? .consume
+    }
+
+    /// Window placement shortcuts; the held Cmd/Opt is implicit.
+    /// ←/→: halves. Ctrl+arrow: top corners. Ctrl+Shift+arrow: bottom corners.
+    /// Ctrl+C: center. Ctrl+N: next display.
+    private static func placement(keyCode: Int, shift: Bool, ctrl: Bool) -> PlacementAction? {
+        switch keyCode {
+        case kVK_LeftArrow:          ctrl ? (shift ? .bottomLeft : .topLeft) : .leftHalf
+        case kVK_RightArrow:         ctrl ? (shift ? .bottomRight : .topRight) : .rightHalf
+        case kVK_ANSI_C where ctrl:  .center
+        case kVK_ANSI_N where ctrl:  .nextDisplay
+        default:                     nil
+        }
     }
 
     private static func decodeFilter(keyCode: Int, shift: Bool, character: Character?) -> DecoderResult {

@@ -9,7 +9,7 @@ final class HotkeyDecoderTests: XCTestCase {
     private func decode(
         key keyCode: Int,
         type: CGEventType = .keyDown,
-        cmd: Bool = false, opt: Bool = false, shift: Bool = false,
+        cmd: Bool = false, opt: Bool = false, shift: Bool = false, ctrl: Bool = false,
         state: SwitcherState,
         char: Character? = nil
     ) -> DecoderResult {
@@ -19,6 +19,7 @@ final class HotkeyDecoderTests: XCTestCase {
             flagsMaskCommand: cmd,
             flagsMaskOption: opt,
             flagsMaskShift: shift,
+            flagsMaskControl: ctrl,
             state: state,
             keyDownCharacter: char
         )
@@ -86,6 +87,32 @@ final class HotkeyDecoderTests: XCTestCase {
         XCTAssertEqual(decode(key: kVK_PageUp,   cmd: true, state: cycle), .event(.arrowUp))
         XCTAssertEqual(decode(key: kVK_Home,     cmd: true, state: cycle), .event(.moveToTop))
         XCTAssertEqual(decode(key: kVK_End,      cmd: true, state: cycle), .event(.moveToBottom))
+    }
+
+    func testHoldCyclePlacementKeys() {
+        let cases: [(Int, Bool, Bool, PlacementAction)] = [
+            // (keyCode, ctrl, shift, expected)
+            (kVK_LeftArrow,  false, false, .leftHalf),
+            (kVK_RightArrow, false, false, .rightHalf),
+            (kVK_LeftArrow,  true,  false, .topLeft),
+            (kVK_RightArrow, true,  false, .topRight),
+            (kVK_LeftArrow,  true,  true,  .bottomLeft),
+            (kVK_RightArrow, true,  true,  .bottomRight),
+            (kVK_ANSI_C,     true,  false, .center),
+            (kVK_ANSI_N,     true,  false, .nextDisplay),
+        ]
+        for (key, ctrl, shift, expected) in cases {
+            XCTAssertEqual(
+                decode(key: key, cmd: true, shift: shift, ctrl: ctrl, state: cycle),
+                .event(.action(.place(expected))),
+                "keyCode \(key) ctrl=\(ctrl) shift=\(shift)"
+            )
+        }
+    }
+
+    func testHoldCycleCAndNWithoutCtrlAreSwallowed() {
+        XCTAssertEqual(decode(key: kVK_ANSI_C, cmd: true, state: cycle), .consume)
+        XCTAssertEqual(decode(key: kVK_ANSI_N, cmd: true, state: cycle), .consume)
     }
 
     func testFlagsChangedCmdReleaseConfirms() {
