@@ -78,6 +78,7 @@ final class HotkeyTap {
         let cmd = flags.contains(.maskCommand)
         let opt = flags.contains(.maskAlternate)
         let shift = flags.contains(.maskShift)
+        let ctrl = flags.contains(.maskControl)
         let keyCode = Int(event.getIntegerValueField(.keyboardEventKeycode))
 
         // Settings shortcut: , with the held modifier (Cmd or Opt) opens the
@@ -96,7 +97,6 @@ final class HotkeyTap {
         // Skipped while Switch itself is active (i.e. the Settings window is
         // open) so the key recorder in Settings can capture the leader key.
         if type == .keyDown, stateProvider() == .closed, !NSApp.isActive, let launcher {
-            let ctrl = flags.contains(.maskControl)
             switch launcher.handleKeyDown(
                 keyCode: UInt16(keyCode),
                 hasModifiers: cmd || opt || shift || ctrl,
@@ -118,6 +118,7 @@ final class HotkeyTap {
             flagsMaskCommand: cmd,
             flagsMaskOption: opt,
             flagsMaskShift: shift,
+            flagsMaskControl: ctrl,
             state: stateProvider(),
             keyDownCharacter: type == .keyDown ? event.firstCharacter() : nil
         )

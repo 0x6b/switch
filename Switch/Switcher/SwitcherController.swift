@@ -172,6 +172,16 @@ final class SwitcherController: ObservableObject {
         case .quitApp:        actions.quit(entry)
         case .hideApp:        actions.hide(entry)
         case .minimizeWindow: actions.minimize(entry)
+        case .place(let placement):
+            // Focus before moving: the placed window is what the user is about
+            // to use, and activating first un-minimizes/un-hides it so the
+            // frame change applies to a visible window. The panel stays open,
+            // so further placements or cycling still work; releasing the
+            // modifier re-activates the same entry, which is harmless.
+            // Moving/resizing doesn't change the row list; no refresh needed.
+            actions.activate(entry)
+            actions.place(entry, placement)
+            return
         }
         refreshSnapshot()
         // OS hide/minimize/close are async with animations; poll a few times so

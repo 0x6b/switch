@@ -2,6 +2,8 @@ import AppKit
 import ApplicationServices
 
 final class WindowActions: WindowActioning {
+    private var placementCycle = PlacementCycle()
+
     func activate(_ entry: WindowEntry) {
         guard let app = NSRunningApplication(processIdentifier: entry.appPID) else { return }
 
@@ -31,5 +33,9 @@ final class WindowActions: WindowActioning {
 
     func minimize(_ entry: WindowEntry) {
         entry.axWindow.setAttribute(kAXMinimizedAttribute as String, true as CFBoolean)
+    }
+
+    func place(_ entry: WindowEntry, _ action: PlacementAction) {
+        WindowPlacement.apply(action, to: entry.axWindow, cycle: &placementCycle)
     }
 }

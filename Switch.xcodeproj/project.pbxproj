@@ -18,6 +18,7 @@
 		3A3705675983530269F57F20 /* SwitcherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E83002CFAA5EA5EF56628 /* SwitcherController.swift */; };
 		419854E47745D048341884BA /* WindowEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB880FB4DBE25B99B878B33F /* WindowEntry.swift */; };
 		45DF39AD8252D2A1602FFAA6 /* WindowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809E63E8CF3BAE25E7D78DD /* WindowList.swift */; };
+		546459E03E64ACB8AAF549EA /* PlacementCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7ECBB95B16AB797D604D6A /* PlacementCycleTests.swift */; };
 		562C1F404F81884E35E592A4 /* LauncherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3822F2A7C250D153D7257C89 /* LauncherSettingsView.swift */; };
 		5DB71BBD7257AAA895F6039C /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38A53DE1A81CEEB9D1B026 /* FilterEngine.swift */; };
 		60A8EA211A0A27844EE3587D /* LauncherTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3EDD53822975D404B59B9B /* LauncherTarget.swift */; };
@@ -25,6 +26,7 @@
 		66B1EE34719731B75AB5F9DB /* LauncherTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */; };
 		6C2A540E3B3396AA921FAD42 /* LauncherDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E001AE899BD53ADDC7694 /* LauncherDecoderTests.swift */; };
 		6DB0E41581E54D8EE77A8B56 /* WindowProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E1C6D446D8A510FFE99737 /* WindowProviding.swift */; };
+		78D5980354A9C401399E96A9 /* WindowPlacementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2A553BF2D2E106D10EB2BB /* WindowPlacementTests.swift */; };
 		8E82ACF5642A48B225D2F8C3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF6483A308C2443F3926D7E /* SettingsView.swift */; };
 		909A2A1545614BA6E86188C7 /* SwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190FA5D1FF95D8B9FE3D980E /* SwitcherView.swift */; };
 		91F6DC6586035974993D81F3 /* SwitcherState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8F0AC0CB4A542ED8ABBFA /* SwitcherState.swift */; };
@@ -37,6 +39,7 @@
 		C697FBD22B7967A9905AD6D9 /* KeyRecorderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0231FB5F1297C3C42869A6BA /* KeyRecorderField.swift */; };
 		D7A11917D46CBE13E471AE8E /* HotkeyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027AB6B06AA5EF1DB3508F38 /* HotkeyDecoder.swift */; };
 		DBE19D1614358F3EDC1BBE45 /* Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D6987F63628B899D6E3A01 /* Fakes.swift */; };
+		DE1D3838CE8826711378201F /* WindowPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8972DDACDEFB9A7C30E1B /* WindowPlacement.swift */; };
 		E859BD21A71D30682ECF73D0 /* LauncherDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC136D8E865BA55242EC02CC /* LauncherDecoder.swift */; };
 		F040CB68B8FBADF90AB78BDC /* KeyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090210997E65D9C3CDBA9C80 /* KeyName.swift */; };
 		F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875A828B24B09BBA6D3C59FA /* SmokeTests.swift */; };
@@ -74,14 +77,17 @@
 		3822F2A7C250D153D7257C89 /* LauncherSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherSettingsView.swift; sourceTree = "<group>"; };
 		411FAC8E90130D497D4FEFC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A28B2656DCB216F1BEDC19A /* LauncherConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherConfigTests.swift; sourceTree = "<group>"; };
+		5E7ECBB95B16AB797D604D6A /* PlacementCycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementCycleTests.swift; sourceTree = "<group>"; };
 		5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherTargetTests.swift; sourceTree = "<group>"; };
 		620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherControllerTests.swift; sourceTree = "<group>"; };
 		70792BF4FE8DF7D24D594636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		72D6987F63628B899D6E3A01 /* Fakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fakes.swift; sourceTree = "<group>"; };
 		875A828B24B09BBA6D3C59FA /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
+		8E2A553BF2D2E106D10EB2BB /* WindowPlacementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPlacementTests.swift; sourceTree = "<group>"; };
 		9102DB1582995F808C153632 /* SwitcherPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanel.swift; sourceTree = "<group>"; };
 		A1F452498B858964B768328B /* FilterEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngineTests.swift; sourceTree = "<group>"; };
 		A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherPanelTests.swift; sourceTree = "<group>"; };
+		AAE8972DDACDEFB9A7C30E1B /* WindowPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPlacement.swift; sourceTree = "<group>"; };
 		BBF6483A308C2443F3926D7E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D49FEF92D19C9C942F07D144 /* WindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowActions.swift; sourceTree = "<group>"; };
 		D598A61DC65229AE22416BE5 /* SwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +172,7 @@
 				1A141679B29F6673352FCCC3 /* WindowActioning.swift */,
 				D49FEF92D19C9C942F07D144 /* WindowActions.swift */,
 				D809E63E8CF3BAE25E7D78DD /* WindowList.swift */,
+				AAE8972DDACDEFB9A7C30E1B /* WindowPlacement.swift */,
 				21E1C6D446D8A510FFE99737 /* WindowProviding.swift */,
 			);
 			path = System;
@@ -201,9 +208,11 @@
 				4A28B2656DCB216F1BEDC19A /* LauncherConfigTests.swift */,
 				359E001AE899BD53ADDC7694 /* LauncherDecoderTests.swift */,
 				5F35FE3E50951E507AD4A6EC /* LauncherTargetTests.swift */,
+				5E7ECBB95B16AB797D604D6A /* PlacementCycleTests.swift */,
 				875A828B24B09BBA6D3C59FA /* SmokeTests.swift */,
 				620E309D7D6200679B3CB088 /* SwitcherControllerTests.swift */,
 				A6BA89D8BDF1C3600B1D4D99 /* SwitcherPanelTests.swift */,
+				8E2A553BF2D2E106D10EB2BB /* WindowPlacementTests.swift */,
 			);
 			path = SwitchTests;
 			sourceTree = "<group>";
@@ -334,6 +343,7 @@
 				1FA2720FA8C77E4F58A50C36 /* WindowActions.swift in Sources */,
 				419854E47745D048341884BA /* WindowEntry.swift in Sources */,
 				45DF39AD8252D2A1602FFAA6 /* WindowList.swift in Sources */,
+				DE1D3838CE8826711378201F /* WindowPlacement.swift in Sources */,
 				6DB0E41581E54D8EE77A8B56 /* WindowProviding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,9 +358,11 @@
 				60AE49C7BF3CDA1D89820CFB /* LauncherConfigTests.swift in Sources */,
 				6C2A540E3B3396AA921FAD42 /* LauncherDecoderTests.swift in Sources */,
 				66B1EE34719731B75AB5F9DB /* LauncherTargetTests.swift in Sources */,
+				546459E03E64ACB8AAF549EA /* PlacementCycleTests.swift in Sources */,
 				F1FBF7D3F97601E9C1D66D08 /* SmokeTests.swift in Sources */,
 				00F833DD5D8C2A5F3DC3C425 /* SwitcherControllerTests.swift in Sources */,
 				B7F19BFFE1852FC126979E92 /* SwitcherPanelTests.swift in Sources */,
+				78D5980354A9C401399E96A9 /* WindowPlacementTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

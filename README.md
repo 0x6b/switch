@@ -20,6 +20,13 @@ While the switcher is open with the modifier held:
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
 | <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd>, <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>j</kbd>/<kbd>k</kbd>, Two-finger swipe ↓ / ↑ | Next / previous row                   |
 | <kbd>w</kbd> / <kbd>q</kbd> / <kbd>h</kbd> / <kbd>m</kbd>                                                                          | Close window / Quit / Hide / Minimize |
+| <kbd>←</kbd> / <kbd>→</kbd>                                                                                                        | Focus and move selected window to left / right half |
+| <kbd>Ctrl</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>→</kbd>                                                                        | Move to top-left / top-right quarter  |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd>                                      | Move to bottom-left / bottom-right quarter |
+| <kbd>Ctrl</kbd>+<kbd>c</kbd>                                                                                                       | Center window (size unchanged)        |
+| <kbd>Ctrl</kbd>+<kbd>n</kbd>                                                                                                       | Move window to next display           |
+
+Repeating a half or quarter command on the same window cycles its width through 1/2 → 2/3 → 1/4 → 1/3 of the screen. Moving the window by hand, or running a different command, restarts the cycle at 1/2.
 | <kbd>s</kbd>                                                                                                                       | Switch to filter-typing mode          |
 | <kbd>,</kbd>                                                                                                                       | Open Settings                         |
 | Release modifier, or mouse click                                                                                                   | Activate selected, close panel        |

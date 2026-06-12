@@ -166,6 +166,26 @@ final class SwitcherControllerTests: XCTestCase {
         XCTAssertEqual(controller.selection, 0, "selection clamped into new range")
     }
 
+    func testPlaceActionActsOnSelectionAndKeepsPanelOpen() {
+        let a = makeEntry(app: "A")
+        let b = makeEntry(app: "B")
+        provider.allWindows = [a, b]
+        _ = controller.handle(.openAllWindows)
+        // selection = 1 (b)
+        let snapshotCallsBefore = provider.snapshotCalls.count
+
+        _ = controller.handle(.action(.place(.leftHalf)))
+
+        // Activate first (unhides/unminimizes and focuses), then move: the
+        // placed window is what the user is about to use, and an unfocused
+        // background window would make the placement invisible.
+        XCTAssertEqual(actions.calls, [.activate(b.id), .place(b.id, .leftHalf)])
+        XCTAssertEqual(controller.state, .holdCycle(modifier: .cmd, mode: .allWindows))
+        XCTAssertEqual(controller.selection, 1, "selection is unchanged")
+        XCTAssertEqual(provider.snapshotCalls.count, snapshotCallsBefore,
+                       "moving a window doesn't change the row list, so no refresh")
+    }
+
     func testSTransitionsToFilterMode() {
         provider.allWindows = [makeEntry(), makeEntry()]
         _ = controller.handle(.openAllWindows)

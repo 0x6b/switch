@@ -42,6 +42,7 @@ enum WindowAction: Equatable {
     case quitApp
     case hideApp
     case minimizeWindow
+    case place(PlacementAction)
 }
 
 enum SwitcherEvent: Equatable {
