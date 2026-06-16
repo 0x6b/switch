@@ -40,14 +40,14 @@ Matching is case- and diacritic-insensitive substring. Whitespace splits the fil
 
 While the switcher is open with the modifier held, these keys focus the selected window and move it on its current screen (ported from [Rectangle](https://github.com/rxhanson/Rectangle)). The panel stays open, so placements can be chained or followed by more navigation.
 
-| Key                                                                                           | Action                             |
-| --------------------------------------------------------------------------------------------- | ---------------------------------- |
-| <kbd>←</kbd> / <kbd>→</kbd>                                                                   | Left / right half                  |
-| <kbd>Ctrl</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>→</kbd>                                   | Top-left / top-right quarter       |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd> | Bottom-left / bottom-right quarter |
-| <kbd>Ctrl</kbd>+<kbd>↑</kbd>                                                                  | Maximize (fill visible screen)     |
-| <kbd>Ctrl</kbd>+<kbd>c</kbd>                                                                  | Center (size unchanged)            |
-| <kbd>Ctrl</kbd>+<kbd>n</kbd>                                                                  | Move to next display, centered     |
+| Key                                                           | Action                             |
+| ------------------------------------------------------------- | ---------------------------------- |
+| <kbd>←</kbd> / <kbd>→</kbd>                                   | Left / right half                  |
+| <kbd>Ctrl</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>→</kbd>   | Top-left / top-right quarter       |
+| <kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>Shift</kbd>+<kbd>→</kbd> | Bottom-left / bottom-right quarter |
+| <kbd>Ctrl</kbd>+<kbd>↑</kbd>                                  | Maximize (fill visible screen)     |
+| <kbd>Ctrl</kbd>+<kbd>c</kbd>                                  | Center (size unchanged)            |
+| <kbd>Ctrl</kbd>+<kbd>n</kbd>                                  | Move to next display, centered     |
 
 Repeating a half or quarter command on the same window cycles its width through 1/2 → 2/3 → 1/4 → 1/3 of the screen. Moving the window by hand, or running a different command, restarts the cycle at 1/2.
 
