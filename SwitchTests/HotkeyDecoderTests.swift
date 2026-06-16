@@ -96,8 +96,9 @@ final class HotkeyDecoderTests: XCTestCase {
             (kVK_RightArrow, false, false, .rightHalf),
             (kVK_LeftArrow,  true,  false, .topLeft),
             (kVK_RightArrow, true,  false, .topRight),
-            (kVK_LeftArrow,  true,  true,  .bottomLeft),
-            (kVK_RightArrow, true,  true,  .bottomRight),
+            (kVK_LeftArrow,  false, true,  .bottomLeft),
+            (kVK_RightArrow, false, true,  .bottomRight),
+            (kVK_UpArrow,    true,  false, .maximize),
             (kVK_ANSI_C,     true,  false, .center),
             (kVK_ANSI_N,     true,  false, .nextDisplay),
         ]
