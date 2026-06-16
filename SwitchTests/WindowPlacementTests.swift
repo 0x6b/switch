@@ -40,6 +40,16 @@ final class WindowPlacementTests: XCTestCase {
         XCTAssertEqual(target(.bottomRight), CGRect(x: 720, y: 463, width: 720, height: 437))
     }
 
+    // MARK: - Maximize
+
+    func testMaximize() {
+        XCTAssertEqual(target(.maximize), vf)
+    }
+
+    func testMaximizeIgnoresStep() {
+        XCTAssertEqual(target(.maximize, step: 1), target(.maximize, step: 0))
+    }
+
     // MARK: - Center
 
     func testCenterKeepsSize() {
@@ -91,8 +101,9 @@ final class WindowPlacementTests: XCTestCase {
         XCTAssertEqual(target(.bottomRight, step: 2), CGRect(x: 1080, y: 463, width: 360, height: 437))
     }
 
-    func testCenterAndNextDisplayIgnoreStep() {
+    func testCenterNextDisplayAndMaximizeIgnoreStep() {
         XCTAssertEqual(target(.center, step: 1), target(.center, step: 0))
+        XCTAssertEqual(target(.maximize, step: 1), target(.maximize, step: 0))
         let next = CGRect(x: 1440, y: 0, width: 1920, height: 1080)
         XCTAssertEqual(target(.nextDisplay, next: next, step: 2), target(.nextDisplay, next: next, step: 0))
     }

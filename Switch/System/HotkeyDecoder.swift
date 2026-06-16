@@ -77,11 +77,12 @@ enum HotkeyDecoder {
 
     /// Window placement shortcuts; the held Cmd/Opt is implicit.
     /// ←/→: halves. Ctrl+arrow: top corners. Ctrl+Shift+arrow: bottom corners.
-    /// Ctrl+C: center. Ctrl+N: next display.
+    /// Ctrl+↑: maximize. Ctrl+C: center. Ctrl+N: next display.
     private static func placement(keyCode: Int, shift: Bool, ctrl: Bool) -> PlacementAction? {
         switch keyCode {
         case kVK_LeftArrow:          ctrl ? (shift ? .bottomLeft : .topLeft) : .leftHalf
         case kVK_RightArrow:         ctrl ? (shift ? .bottomRight : .topRight) : .rightHalf
+        case kVK_UpArrow where ctrl: .maximize
         case kVK_ANSI_C where ctrl:  .center
         case kVK_ANSI_N where ctrl:  .nextDisplay
         default:                     nil

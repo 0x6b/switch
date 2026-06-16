@@ -9,6 +9,7 @@ enum PlacementAction: Equatable {
     case topRight
     case bottomLeft
     case bottomRight
+    case maximize
     case center
     case nextDisplay
 }
@@ -67,6 +68,7 @@ enum WindowPlacement {
         case .topRight:    CGRect(x: vf.maxX - width, y: vf.minY, width: width, height: halfH)
         case .bottomLeft:  CGRect(x: vf.minX, y: vf.maxY - halfH, width: width, height: halfH)
         case .bottomRight: CGRect(x: vf.maxX - width, y: vf.maxY - halfH, width: width, height: halfH)
+        case .maximize:    vf
         case .center:      centered(size: window.size, in: vf)
         case .nextDisplay: nextVisibleFrame.map { centered(size: window.size, in: $0) }
         }

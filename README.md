@@ -45,6 +45,7 @@ While the switcher is open with the modifier held, these keys focus the selected
 | <kbd>←</kbd> / <kbd>→</kbd>                                                                   | Left / right half                  |
 | <kbd>Ctrl</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>→</kbd>                                   | Top-left / top-right quarter       |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd> | Bottom-left / bottom-right quarter |
+| <kbd>Ctrl</kbd>+<kbd>↑</kbd>                                                                  | Maximize (fill visible screen)     |
 | <kbd>Ctrl</kbd>+<kbd>c</kbd>                                                                  | Center (size unchanged)            |
 | <kbd>Ctrl</kbd>+<kbd>n</kbd>                                                                  | Move to next display, centered     |
 
