@@ -55,6 +55,7 @@ enum SwitcherEvent: Equatable {
     case arrowUp
     case moveToTop            // Home: jump to first row
     case moveToBottom         // End: jump to last row
+    case activateShortcut(Int) // 0...15: activate the matching hexadecimal row
     case scrollDown
     case scrollUp
     case enterFilterMode      // S (with modifier still held)

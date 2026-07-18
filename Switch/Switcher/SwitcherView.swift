@@ -55,7 +55,11 @@ struct SwitcherView: View {
                             sectionHeader(group.section)
                         }
                         ForEach(group.rows) { row in
-                            rowView(row, selected: row.id == selectedID)
+                            rowView(
+                                row,
+                                selected: row.id == selectedID,
+                                shortcut: shortcutLabel(for: row)
+                            )
                                 .id(row.id)
                                 .onTapGesture { controller.activate(rowID: row.id) }
                                 .onHover { if $0 { controller.hover(rowID: row.id) } }
@@ -123,7 +127,14 @@ struct SwitcherView: View {
             : nil
     }
 
-    private func rowView(_ entry: WindowEntry, selected: Bool) -> some View {
+    private func shortcutLabel(for entry: WindowEntry) -> String? {
+        guard let index = controller.rows.firstIndex(where: { $0.id == entry.id }), index < 16 else {
+            return nil
+        }
+        return String(index, radix: 16, uppercase: true)
+    }
+
+    private func rowView(_ entry: WindowEntry, selected: Bool, shortcut: String?) -> some View {
         let selectedText = Color(nsColor: .alternateSelectedControlTextColor)
         let titleEmpty = entry.windowTitle.isEmpty
         return HStack(spacing: 8) {
@@ -133,6 +144,20 @@ struct SwitcherView: View {
                 .lineLimit(1)
                 .truncationMode(.head)
                 .frame(width: 140, alignment: .trailing)
+            SwiftUI.Group {
+                if let shortcut {
+                    Text(shortcut)
+                        .font(.system(size: 11, weight: .semibold, design: .rounded))
+                        .foregroundStyle(selected ? selectedText.opacity(0.9) : .secondary)
+                        .frame(width: 18, height: 18)
+                        .background(
+                            selected ? Color.white.opacity(0.16) : Color.primary.opacity(0.08),
+                            in: RoundedRectangle(cornerRadius: 5, style: .continuous)
+                        )
+                } else {
+                    Color.clear.frame(width: 18, height: 18)
+                }
+            }
             Image(nsImage: entry.appIcon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)

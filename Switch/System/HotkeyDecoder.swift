@@ -68,11 +68,36 @@ enum HotkeyDecoder {
 
     private static func decodeHoldCycle(keyCode: Int, shift: Bool, ctrl: Bool) -> DecoderResult {
         if keyCode == kVK_Tab { return .event(shift ? .tabBackward : .tabForward) }
+        if !ctrl, let shortcut = hexadecimalShortcut(keyCode: keyCode) {
+            return .event(.activateShortcut(shortcut))
+        }
         if let placement = placement(keyCode: keyCode, shift: shift, ctrl: ctrl) {
             return .event(.action(.place(placement)))
         }
         // Unknown keys are swallowed so they don't leak through to the focused app.
         return holdCycleMap[keyCode].map(DecoderResult.event) ?? .consume
+    }
+
+    private static func hexadecimalShortcut(keyCode: Int) -> Int? {
+        switch keyCode {
+        case kVK_ANSI_0: 0
+        case kVK_ANSI_1: 1
+        case kVK_ANSI_2: 2
+        case kVK_ANSI_3: 3
+        case kVK_ANSI_4: 4
+        case kVK_ANSI_5: 5
+        case kVK_ANSI_6: 6
+        case kVK_ANSI_7: 7
+        case kVK_ANSI_8: 8
+        case kVK_ANSI_9: 9
+        case kVK_ANSI_A: 10
+        case kVK_ANSI_B: 11
+        case kVK_ANSI_C: 12
+        case kVK_ANSI_D: 13
+        case kVK_ANSI_E: 14
+        case kVK_ANSI_F: 15
+        default: nil
+        }
     }
 
     /// Window placement shortcuts; the held Cmd/Opt is implicit.
