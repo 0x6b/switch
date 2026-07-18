@@ -97,6 +97,27 @@ final class SwitcherControllerTests: XCTestCase {
         XCTAssertEqual(controller.selection, 0, "with one row there's no 'next' to advance to")
     }
 
+    func testHexadecimalShortcutActivatesMatchingRowAndCloses() {
+        let entries = (0..<16).map { makeEntry(app: "App \($0)") }
+        provider.allWindows = entries
+        _ = controller.handle(.openAllWindows)
+
+        XCTAssertEqual(controller.handle(.activateShortcut(15)), .consumed)
+
+        XCTAssertEqual(actions.calls, [.activate(entries[15].id)])
+        XCTAssertEqual(controller.state, .closed)
+    }
+
+    func testHexadecimalShortcutOutsideRowsIsIgnored() {
+        provider.allWindows = [makeEntry(app: "Only")]
+        _ = controller.handle(.openAllWindows)
+
+        XCTAssertEqual(controller.handle(.activateShortcut(15)), .consumed)
+
+        XCTAssertTrue(actions.calls.isEmpty)
+        XCTAssertNotEqual(controller.state, .closed)
+    }
+
     func testModifierUpInHoldCycleActivatesSelectionAndCloses() {
         let a = makeEntry(app: "A")
         let b = makeEntry(app: "B")

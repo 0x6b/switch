@@ -55,6 +55,8 @@ final class SwitcherController: ObservableObject {
             if !rows.isEmpty { selection = 0 }
         case (_, .moveToBottom):
             if !rows.isEmpty { selection = rows.count - 1 }
+        case (_, .activateShortcut(let number)):
+            activateShortcut(number)
         case (_, .scrollDown):
             advance(by: 1, wrap: false)
         case (_, .scrollUp):
@@ -148,6 +150,12 @@ final class SwitcherController: ObservableObject {
 
     private func confirm() {
         if let entry = selectedEntry() { actions.activate(entry) }
+        close()
+    }
+
+    private func activateShortcut(_ number: Int) {
+        guard rows.indices.contains(number) else { return }
+        actions.activate(rows[number])
         close()
     }
 

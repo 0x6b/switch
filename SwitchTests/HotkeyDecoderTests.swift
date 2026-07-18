@@ -72,6 +72,19 @@ final class HotkeyDecoderTests: XCTestCase {
         XCTAssertEqual(decode(key: kVK_ANSI_S, cmd: true, state: cycle), .event(.enterFilterMode))
     }
 
+    func testHoldCycleHexadecimalShortcuts() {
+        let keys = [kVK_ANSI_0, kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kVK_ANSI_4,
+                    kVK_ANSI_5, kVK_ANSI_6, kVK_ANSI_7, kVK_ANSI_8, kVK_ANSI_9,
+                    kVK_ANSI_A, kVK_ANSI_B, kVK_ANSI_C, kVK_ANSI_D, kVK_ANSI_E,
+                    kVK_ANSI_F]
+        for (index, key) in keys.enumerated() {
+            XCTAssertEqual(
+                decode(key: key, cmd: true, state: cycle),
+                .event(.activateShortcut(index))
+            )
+        }
+    }
+
     func testHoldCycleArrowKeys() {
         XCTAssertEqual(decode(key: kVK_DownArrow, cmd: true, state: cycle), .event(.arrowDown))
         XCTAssertEqual(decode(key: kVK_UpArrow,   cmd: true, state: cycle), .event(.arrowUp))
@@ -111,8 +124,7 @@ final class HotkeyDecoderTests: XCTestCase {
         }
     }
 
-    func testHoldCycleCAndNWithoutCtrlAreSwallowed() {
-        XCTAssertEqual(decode(key: kVK_ANSI_C, cmd: true, state: cycle), .consume)
+    func testHoldCycleNWithoutCtrlIsSwallowed() {
         XCTAssertEqual(decode(key: kVK_ANSI_N, cmd: true, state: cycle), .consume)
     }
 
@@ -128,6 +140,14 @@ final class HotkeyDecoderTests: XCTestCase {
 
     func testFilterModeCharacterTyping() {
         XCTAssertEqual(decode(key: kVK_ANSI_A, state: filtering, char: "a"), .event(.character("a")))
+    }
+
+    func testFilterModeDigitRemainsFilterInput() {
+        XCTAssertEqual(decode(key: kVK_ANSI_1, state: filtering, char: "1"), .event(.character("1")))
+    }
+
+    func testFilterModeHexLetterRemainsFilterInput() {
+        XCTAssertEqual(decode(key: kVK_ANSI_F, state: filtering, char: "f"), .event(.character("f")))
     }
 
     func testFilterModeEnter() {

@@ -12,6 +12,8 @@ Use <kbd>Opt</kbd>+<kbd>Tab</kbd> instead for windows of the current app only.
 
 The list is grouped: on-screen first, then **Minimized**, then **Hidden**. Picking a minimized or hidden row un-minimizes / un-hides before raising.
 
+The first 16 rows are labeled with hexadecimal shortcuts, <kbd>0</kbd> through <kbd>F</kbd>, shown between the app name and icon. Press a row's label while the switcher modifier is held to activate that window immediately.
+
 ### Switching
 
 While the switcher is open with the modifier held:
@@ -19,6 +21,7 @@ While the switcher is open with the modifier held:
 | Key                                                                                                                                | Action                                |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
 | <kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd>, <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>j</kbd>/<kbd>k</kbd>, Two-finger swipe ↓ / ↑ | Next / previous row                   |
+| <kbd>0</kbd>–<kbd>9</kbd>, <kbd>A</kbd>–<kbd>F</kbd>                                                                               | Activate labeled row, close panel     |
 | <kbd>w</kbd> / <kbd>q</kbd> / <kbd>h</kbd> / <kbd>m</kbd>                                                                          | Close window / Quit / Hide / Minimize |
 | <kbd>s</kbd>                                                                                                                       | Switch to filter-typing mode          |
 | <kbd>,</kbd>                                                                                                                       | Open Settings                         |
