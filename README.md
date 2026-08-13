@@ -2,6 +2,9 @@
 
 A personal macOS window switcher and app launcher. Replaces <kbd>Cmd</kbd>+<kbd>Tab</kbd> with a list of individual windows instead of apps, and opens mapped apps and URLs with a leader key.
 
+An early native Rust launcher for Windows is under [`Windows`](./Windows). It
+currently implements the leader-key launcher only; the macOS app remains unchanged.
+
 ![Screenshot](./docs/switch.png)
 
 ## Window Switcher
