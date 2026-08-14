@@ -50,6 +50,36 @@ Edit the generated mappings, then start Switch again. There is intentionally no
 settings UI, tray icon, installer, automatic startup, or automatic config reload
 yet. To stop it, use Task Manager or `Stop-Process Switch` in PowerShell.
 
+## Targets
+
+Use an executable path for a classic desktop app or a URL for the default web
+browser:
+
+```toml
+[launcher.primary]
+a = 'C:\Program Files\Alacritty\alacritty.exe'
+g = 'https://github.com'
+```
+
+Microsoft Store and other packaged apps live under versioned paths in
+`C:\Program Files\WindowsApps`, so do not map their executable paths. Find the
+app's stable Application User Model ID (AUMID) instead:
+
+```powershell
+Get-StartApps | Where-Object Name -Match "Teams" | Format-Table Name, AppID
+```
+
+Prefix the returned `AppID` with `shell:AppsFolder\`:
+
+```toml
+[launcher.primary]
+t = 'shell:AppsFolder\MSTeams_8wekyb3d8bbwe!MSTeams'
+```
+
+Use the `AppID` reported on your machine rather than assuming it matches this
+example. A packaged app receives the launch request through Windows Shell and
+normally activates its existing window when it is already running.
+
 The leader keystroke is consumed globally. Modified key combinations pass
 through and cancel an in-progress sequence. A mapped key is consumed; an
 unmapped key passes through.
