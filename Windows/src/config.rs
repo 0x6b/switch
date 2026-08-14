@@ -88,12 +88,7 @@ mod tests {
     #[test]
     fn parses_launcher_table() {
         let config: Config = from_str(
-            r#"
-                [launcher]
-                leader = "CapsLock"
-                [launcher.primary]
-                g = "https://github.com"
-            "#,
+            "[launcher]\nleader = \"CapsLock\"\n[launcher.primary]\ng = \"https://github.com\"",
         )
         .unwrap();
         assert_eq!(config.launcher.leader, "CapsLock");
