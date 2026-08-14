@@ -1,5 +1,5 @@
 use std::{
-    collections::HashMap,
+    collections::{HashMap, HashSet},
     time::{Duration, Instant},
 };
 
@@ -15,7 +15,7 @@ pub struct Decoder {
     timeout: Duration,
     mappings: HashMap<u32, String>,
     deadline: Option<Instant>,
-    leader_down_consumed: bool,
+    consumed_keys: HashSet<u32>,
 }
 
 impl Decoder {
@@ -25,16 +25,16 @@ impl Decoder {
             timeout: Duration::from_millis(timeout_ms),
             mappings,
             deadline: None,
-            leader_down_consumed: false,
+            consumed_keys: HashSet::new(),
         }
     }
 
     pub fn key_down(&mut self, key: u32, modified: bool, now: Instant) -> Action {
+        if self.consumed_keys.contains(&key) {
+            return Action::Consume;
+        }
         if modified {
             self.deadline = None;
-            if key == self.leader {
-                self.leader_down_consumed = false;
-            }
             return Action::PassThrough;
         }
         if self.deadline.is_some_and(|deadline| now > deadline) {
@@ -43,31 +43,28 @@ impl Decoder {
         if self.deadline.is_none() {
             if key == self.leader {
                 self.deadline = Some(now + self.timeout);
-                self.leader_down_consumed = true;
+                self.consumed_keys.insert(key);
                 Action::Consume
             } else {
                 Action::PassThrough
             }
         } else if key == self.leader {
             self.deadline = Some(now + self.timeout);
-            self.leader_down_consumed = true;
+            self.consumed_keys.insert(key);
             Action::Consume
         } else {
             self.deadline = None;
-            self.mappings
-                .get(&key)
-                .cloned()
-                .map_or(Action::PassThrough, Action::Launch)
+            if let Some(target) = self.mappings.get(&key).cloned() {
+                self.consumed_keys.insert(key);
+                Action::Launch(target)
+            } else {
+                Action::PassThrough
+            }
         }
     }
 
     pub fn key_up(&mut self, key: u32) -> bool {
-        if key != self.leader {
-            return false;
-        }
-        let consumed = self.leader_down_consumed;
-        self.leader_down_consumed = false;
-        consumed
+        self.consumed_keys.remove(&key)
     }
 }
 
@@ -133,5 +130,26 @@ mod tests {
         assert!(!decoder.key_up(0x14));
         decoder.key_down(0x14, false, now);
         assert!(decoder.key_up(0x14));
+    }
+
+    #[test]
+    fn mapping_repeat_and_key_up_are_consumed() {
+        let now = Instant::now();
+        let mut decoder = decoder();
+        decoder.key_down(0x14, false, now);
+        decoder.key_up(0x14);
+        assert_eq!(
+            decoder.key_down(u32::from(b'G'), false, now),
+            Action::Launch("target".into())
+        );
+        assert_eq!(
+            decoder.key_down(u32::from(b'G'), false, now),
+            Action::Consume
+        );
+        assert!(decoder.key_up(u32::from(b'G')));
+        assert_eq!(
+            decoder.key_down(u32::from(b'G'), false, now),
+            Action::PassThrough
+        );
     }
 }
