@@ -36,7 +36,9 @@ directory.
 
 Debug builds produced by `cargo run` stay attached to the console and stop with
 <kbd>Ctrl</kbd>+<kbd>C</kbd>. Release builds use the Windows GUI subsystem and run
-without a console window.
+without a console window. Debug builds also log launcher resolution, visible
+process paths, executable matching, and foreground activation results to the
+console.
 
 On first run, Switch creates and opens:
 

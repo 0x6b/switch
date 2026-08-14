@@ -47,6 +47,22 @@ use crate::{
     executable,
 };
 
+#[cfg(debug_assertions)]
+macro_rules! debug_log {
+    ($($argument:tt)*) => {{
+        eprintln!("[Switch] {}", format_args!($($argument)*))
+    }};
+}
+
+#[cfg(not(debug_assertions))]
+macro_rules! debug_log {
+    ($($argument:tt)*) => {{
+        if false {
+            let _ = format_args!($($argument)*);
+        }
+    }};
+}
+
 static DECODER: OnceLock<Mutex<Decoder>> = OnceLock::new();
 static LAUNCHER: OnceLock<Sender<String>> = OnceLock::new();
 
@@ -75,6 +91,11 @@ pub fn run() -> Result<(), String> {
         .iter()
         .map(|(key, target)| virtual_key(key).map(|key| (key, target.clone())))
         .collect::<Result<HashMap<_, _>, _>>()?;
+    debug_log!(
+        "loaded {} mapping(s) from {}; leader=0x{leader:02X}",
+        mappings.len(),
+        path.display()
+    );
     DECODER
         .set(Mutex::new(Decoder::new(
             leader,
@@ -89,6 +110,7 @@ pub fn run() -> Result<(), String> {
         .map_err(|_| "launcher worker was already initialized".to_string())?;
     spawn(move || {
         while let Ok(target) = receiver.recv() {
+            debug_log!("resolved launcher target: {target}");
             open_or_activate(&target);
         }
     });
@@ -104,6 +126,7 @@ pub fn run() -> Result<(), String> {
         )
     }
     .map_err(|error| format!("Could not install keyboard hook: {error}"))?;
+    debug_log!("keyboard hook installed");
     let mut message = MSG::default();
     while unsafe { GetMessageW(&mut message, None, 0, 0) }.0 > 0 {
         unsafe {
@@ -177,12 +200,15 @@ fn create_config(path: &Path) -> Result<(), String> {
 
 fn open_or_activate(target: &str) {
     let path = Path::new(target);
-    if path
+    let executable = path
         .extension()
-        .is_some_and(|extension| extension.eq_ignore_ascii_case("exe"))
-        && activate_executable(path)
-    {
-        return;
+        .is_some_and(|extension| extension.eq_ignore_ascii_case("exe"));
+    debug_log!("opening target; executable={executable}, target={target}");
+    if executable {
+        if activate_executable(path) {
+            return;
+        }
+        debug_log!("no running window activated; falling back to ShellExecuteW");
     }
     open_shell(target);
 }
@@ -194,20 +220,26 @@ fn activate_executable(executable: &Path) -> bool {
     }
     unsafe extern "system" fn callback(window: HWND, data: LPARAM) -> BOOL {
         let search = unsafe { &mut *(data.0 as *mut Search) };
-        if !unsafe { IsWindowVisible(window) }.as_bool()
-            || unsafe { GetWindowLongW(window, GWL_EXSTYLE) } as u32 & WS_EX_TOOLWINDOW.0 != 0
-        {
-            return true.into();
-        }
+        let visible = unsafe { IsWindowVisible(window) }.as_bool();
+        let tool_window =
+            unsafe { GetWindowLongW(window, GWL_EXSTYLE) } as u32 & WS_EX_TOOLWINDOW.0 != 0;
         let mut process_id = 0;
         unsafe {
             GetWindowThreadProcessId(window, Some(&mut process_id));
         }
-        if process_path(process_id)
-            .is_some_and(|path| executable::matches(&path, &search.executable))
-        {
-            search.window = window;
-            return false.into();
+        match process_path(process_id) {
+            Ok(path) => {
+                let matched = executable::matches(&path, &search.executable);
+                debug_log!(
+                    "window candidate; pid={process_id}, visible={visible}, tool_window={tool_window}, match={matched}, executable={}",
+                    path.display()
+                );
+                if matched && visible && !tool_window {
+                    search.window = window;
+                    return false.into();
+                }
+            }
+            Err(error) => debug_log!("could not inspect window process {process_id}: {error}"),
         }
         true.into()
     }
@@ -220,13 +252,20 @@ fn activate_executable(executable: &Path) -> bool {
         executable: expected,
         window: HWND::default(),
     };
-    unsafe {
-        let _ = EnumWindows(
+    debug_log!("searching for executable: {}", search.executable.display());
+    let enumeration = unsafe {
+        EnumWindows(
             Some(callback),
             LPARAM((&mut search as *mut Search) as isize),
-        );
+        )
+    };
+    if let Err(error) = enumeration
+        && search.window == HWND::default()
+    {
+        debug_log!("window enumeration stopped: {error}");
     }
     if search.window == HWND::default() {
+        debug_log!("no matching visible window found");
         return false;
     }
     unsafe {
@@ -241,13 +280,16 @@ fn activate_executable(executable: &Path) -> bool {
         if attached {
             let _ = AttachThreadInput(current_thread, foreground_thread, false);
         }
+        debug_log!(
+            "activation attempted; input_attached={attached}, raised={raised}, foreground={foreground}"
+        );
         raised || foreground
     }
 }
 
-fn process_path(process_id: u32) -> Option<PathBuf> {
-    let process =
-        unsafe { OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, process_id) }.ok()?;
+fn process_path(process_id: u32) -> Result<PathBuf, String> {
+    let process = unsafe { OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, process_id) }
+        .map_err(|error| error.to_string())?;
     let mut buffer = vec![0u16; 32_768];
     let mut length = buffer.len() as u32;
     let result = unsafe {
@@ -261,15 +303,15 @@ fn process_path(process_id: u32) -> Option<PathBuf> {
     unsafe {
         let _ = CloseHandle(process);
     }
-    result.ok()?;
-    Some(PathBuf::from(String::from_utf16_lossy(
+    result.map_err(|error| error.to_string())?;
+    Ok(PathBuf::from(String::from_utf16_lossy(
         &buffer[..length as usize],
     )))
 }
 
 fn open_shell(target: &str) {
     let target = wide(target);
-    unsafe {
+    let result = unsafe {
         ShellExecuteW(
             None,
             PCWSTR::null(),
@@ -277,8 +319,9 @@ fn open_shell(target: &str) {
             PCWSTR::null(),
             PCWSTR::null(),
             SW_SHOWNORMAL,
-        );
-    }
+        )
+    };
+    debug_log!("ShellExecuteW returned {}", result.0 as isize);
 }
 
 pub fn show_error(message: &str) {
