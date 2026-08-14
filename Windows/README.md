@@ -50,6 +50,42 @@ Edit the generated mappings, then start Switch again. There is intentionally no
 settings UI, tray icon, installer, automatic startup, or automatic config reload
 yet. To stop it, use Task Manager or `Stop-Process Switch` in PowerShell.
 
+## Install and start at login
+
+Build a release and copy it to a stable location. Run the same commands again
+to update an existing installation:
+
+```powershell
+$env:CARGO_TARGET_DIR = "$env:LOCALAPPDATA\Switch\cargo-target"
+cargo build --release
+
+Stop-Process -Name Switch -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\Switch" | Out-Null
+Copy-Item `
+  "$env:CARGO_TARGET_DIR\release\Switch.exe" `
+  "$env:LOCALAPPDATA\Switch\Switch.exe"
+
+Start-Process "$env:LOCALAPPDATA\Switch\Switch.exe"
+```
+
+Create a shortcut in the current user's Startup folder to start Switch after
+login:
+
+```powershell
+$startup = [Environment]::GetFolderPath("Startup")
+$shell = New-Object -ComObject WScript.Shell
+$shortcut = $shell.CreateShortcut("$startup\Switch.lnk")
+$shortcut.TargetPath = "$env:LOCALAPPDATA\Switch\Switch.exe"
+$shortcut.WorkingDirectory = "$env:LOCALAPPDATA\Switch"
+$shortcut.Save()
+```
+
+Remove the shortcut to disable automatic startup:
+
+```powershell
+Remove-Item "$([Environment]::GetFolderPath('Startup'))\Switch.lnk"
+```
+
 ## Targets
 
 Use an executable path for a classic desktop app or a URL for the default web
