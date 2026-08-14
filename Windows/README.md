@@ -20,6 +20,24 @@ cargo build --release
 .\target\release\Switch.exe
 ```
 
+When running Windows Cargo from a repository stored in WSL through a
+`\\wsl.localhost\...` path, put Cargo's build output on the Windows filesystem.
+The WSL filesystem does not support the lock used by incremental compilation:
+
+```powershell
+$env:CARGO_TARGET_DIR = "$env:LOCALAPPDATA\Switch\cargo-target"
+cargo run
+```
+
+Set `CARGO_TARGET_DIR` in your PowerShell profile if you want this to persist.
+With this override, a release binary is written to
+`$env:CARGO_TARGET_DIR\release\Switch.exe` instead of the repository's `target`
+directory.
+
+Debug builds produced by `cargo run` stay attached to the console and stop with
+<kbd>Ctrl</kbd>+<kbd>C</kbd>. Release builds use the Windows GUI subsystem and run
+without a console window.
+
 On first run, Switch creates and opens:
 
 ```text

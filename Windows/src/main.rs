@@ -1,4 +1,7 @@
-#![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
+#![cfg_attr(
+    all(target_os = "windows", not(debug_assertions)),
+    windows_subsystem = "windows"
+)]
 #[cfg(target_os = "windows")]
 use windows_app::run;
 #[cfg(target_os = "windows")]
@@ -8,6 +11,8 @@ use windows_app::show_error;
 mod config;
 #[cfg(any(target_os = "windows", test))]
 mod decoder;
+#[cfg(any(target_os = "windows", test))]
+mod executable;
 
 #[cfg(target_os = "windows")]
 mod windows_app;

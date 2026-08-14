@@ -44,6 +44,7 @@ use windows::{
 use crate::{
     config::{Config, virtual_key},
     decoder::{Action, Decoder},
+    executable,
 };
 
 static DECODER: OnceLock<Mutex<Decoder>> = OnceLock::new();
@@ -188,7 +189,7 @@ fn open_or_activate(target: &str) {
 
 fn activate_executable(executable: &Path) -> bool {
     struct Search {
-        executable: String,
+        executable: PathBuf,
         window: HWND,
     }
     unsafe extern "system" fn callback(window: HWND, data: LPARAM) -> BOOL {
@@ -203,7 +204,7 @@ fn activate_executable(executable: &Path) -> bool {
             GetWindowThreadProcessId(window, Some(&mut process_id));
         }
         if process_path(process_id)
-            .is_some_and(|path| normalized_path(&path).eq_ignore_ascii_case(&search.executable))
+            .is_some_and(|path| executable::matches(&path, &search.executable))
         {
             search.window = window;
             return false.into();
@@ -216,7 +217,7 @@ fn activate_executable(executable: &Path) -> bool {
         current_dir().unwrap_or_default().join(executable)
     };
     let mut search = Search {
-        executable: normalized_path(&expected),
+        executable: expected,
         window: HWND::default(),
     };
     unsafe {
@@ -242,14 +243,6 @@ fn activate_executable(executable: &Path) -> bool {
         }
         raised || foreground
     }
-}
-
-fn normalized_path(path: &Path) -> String {
-    let rendered = path.to_string_lossy();
-    rendered
-        .strip_prefix(r"\\?\")
-        .unwrap_or(&rendered)
-        .to_owned()
 }
 
 fn process_path(process_id: u32) -> Option<PathBuf> {
